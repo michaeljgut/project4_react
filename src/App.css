@@ -1,0 +1,101 @@
+.App {
+  text-align: center;
+}
+
+.article {
+  padding: .5em;
+  list-style: none;
+}
+
+.edit {
+  text-align: center;
+  font-size: 3em;
+}
+
+.nav-line a {
+  color: black;
+  font-weight: 300;
+}
+
+.nav-link2 {
+  padding-left: 1em;
+  padding-right: 1em;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1em;
+  font-weight: 100;
+}
+
+.saved-item li {
+  font-size: 1em;
+  margin: 10px 0;
+  list-style: none;
+}
+
+.edit-topics-header {
+  text-align: center;
+}
+
+.auth-header {
+  text-align: center;
+}
+
+.auth-page {
+  font-size: 1.25em;
+  margin: 0, auto;
+  text-align: center;
+}
+
+.auth-page form {
+  width: 22em;
+  margin: 0, auto;
+}
+
+.auth-block label {
+  font-size: 1.5em;
+}
+
+.auth-block {
+  width: 22em;
+  height: 15em;
+  margin: 0 auto;
+}
+
+.auth-page input {
+  font-size: 1.5em;
+  width: 11em;
+  border: 5px solid cyan;
+}
+
+.submit {
+  margin: 0, auto;
+}
+
+.search1 {
+  float: left;
+}
+
+.search2 {
+  float: right;
+}
+
+.search3 {
+  float: left;
+}
+
+.search4 {
+  float: right;
+}
+
+.logout {
+  text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+  .search1, .search2, .search3, .search4 {
+    float: none;
+  }
+
+  .App {
+    text-align: left;
+  }
+}

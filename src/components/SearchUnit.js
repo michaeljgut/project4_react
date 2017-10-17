@@ -72,7 +72,7 @@ class SearchUnit extends Component {
     let apiKey = 'api-key=' + process.env.REACT_APP_ARTICLES_API_KEY
     let getQuery = '';
     let articleArray = [];
-    if (this.state.query === '' && this.state.query_loaded) {
+    if (this.state.query === '') {
       getQuery = 'http://api.nytimes.com/svc/topstories/v2/' +
         this.state.topic + '.json?' + apiKey;
         this.setState({query_topic: this.state.topic,

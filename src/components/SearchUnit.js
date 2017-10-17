@@ -153,7 +153,7 @@ class SearchUnit extends Component {
    console.log('in query post ',headers);
    console.log('this.query_topic = ', this.state.query_topic);
     axios
-      .post('/topics', {
+      .post('https://calm-coast-77310.herokuapp.com/topics', {
         name: this.state.query_topic,
         type: this.state.query_type,
         user_id: this.props.user_id,

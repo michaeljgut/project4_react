@@ -61,7 +61,7 @@ class SavedArticles extends Component {
        'expiry': cookies.get('expiry')
      };
     axios
-      .delete(`/articles?id=`, {
+      .delete(`https://calm-coast-77310.herokuapp.com/articles?id=`, {
         title: this.props.article.headline.main,
         publication_date: this.props.article.pub_date,
         url: this.props.article.web_url,

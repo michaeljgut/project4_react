@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Auth from 'j-toker';
 import Nav from './Nav';
+import cookies from 'cookies-js';
 
 class Register extends Component {
 
@@ -53,6 +54,14 @@ class Register extends Component {
     })
     .then(res => {
       console.log(res)
+      console.log('res.headers = ',res.headers);
+       //setting cookies here
+       cookies.set('access-token', res.headers["access-token"]);
+       cookies.set('client', res.headers["client"]);
+       cookies.set('token-type', res.headers["token-type"]);
+       cookies.set('uid', res.headers["uid"]);
+       cookies.set('expiry', res.headers["expiry"]);
+       cookies.set('user_id', res.data.data.id);
       this.setState({
         user_id: res.data.data.id,
         fireRedirect: true

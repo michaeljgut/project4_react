@@ -13,25 +13,27 @@ class Nav extends React.Component {
   }
 
   handleClick() {
-   let headers = {
-     'access-token': cookies.get('access-token'),
-     'client': cookies.get('client'),
-     'token-type': cookies.get('token-type'),
-     'uid': cookies.get('uid'),
-     'expiry': cookies.get('expiry')
-   };
-   console.log('headers = ',headers)
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+    console.log('headers = ',headers)
     let path = `/auth/sign_out`;
+
+    // Set user_id to 0
+    cookies.set('user_id', 0);
     axios
       .delete(path,
-     { headers: headers })
+         { headers: headers })
       .then(res => {
         console.log('--------------->', res)
-       cookies.set('user_id', 0);
-       this.render();
-    this.setState({
-      logout: true
-    });
+        this.render();
+        this.setState({
+          logout: true
+        });
       })
       .catch(err => console.log('in error',err));
 

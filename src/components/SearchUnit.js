@@ -153,7 +153,7 @@ class SearchUnit extends Component {
    console.log('in query post ',headers);
    console.log('this.query_topic = ', this.state.query_topic);
     axios
-      .post('https://calm-coast-77310.herokuapp.com/topics', {
+      .post('/topics', {
         name: this.state.query_topic,
         type: this.state.query_type,
         user_id: this.props.user_id,
@@ -167,16 +167,16 @@ class SearchUnit extends Component {
 
   autoFocus() {
     console.log('this.state.query = ',this.state.query);
-        if (this.props.topic && !this.state.query_loaded) {
-          if (this.props.topic.query_type === 1)
-            this.setState({query: this.props.topic.name,
-                          query_loaded: true});
-          else if (this.props.topic.query_type === 2)
-            this.setState({topic: this.props.topic.name,
-                          query_loaded: true});
-          if (this.state.query_loaded)
-            this.getAPIData();
-        }
+        // if (this.props.topic && !this.state.query_loaded) {
+        //   if (this.props.topic.query_type === 1)
+        //     this.setState({query: this.props.topic.name,
+        //                   query_loaded: true});
+        //   else if (this.props.topic.query_type === 2)
+        //     this.setState({topic: this.props.topic.name,
+        //                   query_loaded: true});
+        //   if (this.state.query_loaded)
+        //     this.getAPIData();
+        // }
       if (this.props.autofocus) {
         // if (this.props.topic && !this.state.query_loaded) {
         //   if (this.props.topic.query_type === 1)
@@ -221,8 +221,7 @@ class SearchUnit extends Component {
             </label>
             {this.autoFocus()}
             {this.saveButton()}
-            <br>
-            </br>
+            <br />
             <label>
               Or select a NY Times Topic:,
               <select name="topic" value={this.state.topic} onChange={this.handleChange}>

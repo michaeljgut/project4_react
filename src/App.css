@@ -90,6 +90,10 @@
   text-decoration: underline;
 }
 
+input {
+  margin-bottom: .5em;
+}
+
 @media (max-width: 500px) {
   .search1, .search2, .search3, .search4 {
     float: none;

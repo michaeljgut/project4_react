@@ -39,14 +39,14 @@ class EditTopic extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault();
-     let headers = {
-       'access-token': cookies.get('access-token'),
-       'client': cookies.get('client'),
-       'token-type': cookies.get('token-type'),
-       'uid': cookies.get('uid'),
-       'expiry': cookies.get('expiry')
-     };
-     console.log('headers = ',headers)
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+    console.log('headers = ',headers)
     axios
       .put(`/topics/${this.props.match.params.topic_id}`, {
         name: this.state.name,
@@ -68,16 +68,17 @@ class EditTopic extends Component {
 
   deleteTopic() {
     let headers = {
-       'access-token': cookies.get('access-token'),
-       'client': cookies.get('client'),
-       'token-type': cookies.get('token-type'),
-       'uid': cookies.get('uid'),
-       'expiry': cookies.get('expiry')
-     };
-     console.log('headers = ',headers)
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+    console.log('headers = ',headers);
+    console.log('topic_id = ',this.props.match.params.topic_id);
     axios
       .delete(`/topics/${this.props.match.params.topic_id}`,
-           { headers: this.state.headers })
+           { headers: headers })
       .then(res => {
         this.setState({
           fireRedirect: true,

@@ -40,12 +40,25 @@ class SearchUnit extends Component {
     this.getAPIData();
   }
 
-  componentWillMount() {
+  componentWillReceiveProps(nextProps) {
+    console.log('this.props.topic = ', this.props.topic);
     if (this.props.topic) {
       if (this.props.topic.query_type === 1)
         this.setState({query: this.props.topic.name});
       else if (this.props.topic.query_type === 2)
         this.setState({topic: this.props.topic.name});
+    }
+  }
+
+  componentWillMount() {
+    console.log('this.props.topic = ', this.props.topic);
+    if (this.props.topic) {
+      if (this.props.topic.query_type === 1)
+        this.setState({query: this.props.topic.name});
+      else if (this.props.topic.query_type === 2)
+        this.setState({topic: this.props.topic.name});
+      this.getAPIData();
+      this.render();
     }
   }
 

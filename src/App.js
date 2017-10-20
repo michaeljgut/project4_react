@@ -20,14 +20,14 @@ class App extends Component {
   }
 
   componentWillMount() {
-   let headers = {
-     'access-token': cookies.get('access-token'),
-     'client': cookies.get('client'),
-     'token-type': cookies.get('token-type'),
-     'uid': cookies.get('uid'),
-     'expiry': cookies.get('expiry')
-   };
-   console.log('headers = *',headers);
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+    console.log('headers = *',headers);
     let path = `/topics?user_id=${cookies.get('user_id')}`;
     console.log('path = ',path);
     axios
@@ -40,12 +40,18 @@ class App extends Component {
         console.log(tempArray[1]);
         this.setState({topics: tempArray,
                        dataLoaded: true});
+        this.forceUpdate();
         // this.setState({
         //   newId: res.data.data.id,
         //   fireRedirect: true
         // });
       })
       .catch(err => console.log('in error',err));
+    console.log('this.state.dataLoaded = ',this.state.dataLoaded);
+    // while (!this.state.dataLoaded) {
+    //   console.log('Waiting....');
+    //   let a = 2;
+    // }
 }
 
   addSearchUnit() {
@@ -77,6 +83,7 @@ class App extends Component {
   }
 
   renderApp() {
+    console.log('topics[0]',this.state.topics[0]);
     return (
         <div className="App">
           <h2>NY Times Article Search Application</h2>
@@ -107,8 +114,19 @@ class App extends Component {
     //     );
     // } else {
       return (
-        <div>
-          {this.renderApp()}
+        <div className="App">
+          <h2>NY Times Article Search Application</h2>
+          <Nav user_id={this.props.match.params.user_id}/>
+          <div className="search1">
+            <SearchUnit autofocus={true} user_id={this.props.match.params.user_id} unit_no="1" topic={this.state.topics[0]} />
+            <SearchUnit user_id={this.props.match.params.user_id} unit_no="2" topic={this.state.topics[1]} />
+          </div>
+          <div className="search2">
+            <SearchUnit user_id={this.props.match.params.user_id} unit_no="3" topic={this.state.topics[2]} />
+            <SearchUnit user_id={this.props.match.params.user_id} unit_no="4" topic={this.state.topics[3]} />
+          </div>
+          {this.searchUnits()}
+          <br />
         </div>
       );
     // }

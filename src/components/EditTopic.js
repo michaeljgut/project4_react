@@ -13,6 +13,7 @@ class EditTopic extends Component {
         definition: '',
         date_modified: new Date(),
         fireRedirect: false,
+        user_id: cookies.get('user_id')
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -83,9 +84,11 @@ class EditTopic extends Component {
   }
 
   render() {
-    let path = `/topics/edit/${cookies.get('user_id')}`
+    let path = `/topics/edit/${this.state.user_id}`
     console.log('path in topiceditform = ',path);
     return (
+      <h2>Edit Topic</h2>
+      <Nav user_id={this.state.user_id}/>
       <div className="edit">
         <form onSubmit={this.handleFormSubmit}>
           <input className='term-placeholder'

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Auth from 'j-toker'
 import Nav from './Nav';
@@ -63,7 +63,7 @@ class Login extends Component {
         <div className="auth-page">
 
           <h2 className="auth-header">Sign In To Save Articles!</h2>
-          <h2></h2>
+          <br />
           <Nav user_id={this.props.match.params.user_id}/>
           <br/>
           <div className="auth-block">

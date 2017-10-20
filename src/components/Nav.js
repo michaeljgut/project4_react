@@ -1,7 +1,4 @@
-import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
-import App from '../App';
-import Flexbox from 'flexbox-react';
+import React from 'react';
 import cookies from 'cookies-js';
 import axios from 'axios';
 

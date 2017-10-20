@@ -53,8 +53,6 @@ componentDidMount() {
   renderTopics(){
     if (this.state.dataLoaded){
       console.log('user_id = ',this.props.match.params.user_id);
-      let pathTopics = '/topics/edit/' + this.props.match.params.user_id;
-      let pathSearch = '/search/user/' + this.props.match.params.user_id;
       return (
         <div>
           <h4>Click To Edit Topic</h4>

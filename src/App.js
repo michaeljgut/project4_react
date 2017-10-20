@@ -4,7 +4,6 @@ import SearchUnit from './components/SearchUnit';
 import Nav from './components/Nav';
 import axios from 'axios';
 import cookies from 'cookies-js';
-import nytimes_logo from './images/poweredby_nytimes_150a.png'
 
 class App extends Component {
 
@@ -36,8 +35,6 @@ class App extends Component {
       .then(res => {
         console.log('--------------->', res)
         let tempArray = res.data.slice();
-        console.log(tempArray[0]);
-        console.log(tempArray[1]);
         this.setState({topics: tempArray,
                        dataLoaded: true});
         this.forceUpdate();
@@ -47,7 +44,6 @@ class App extends Component {
         // });
       })
       .catch(err => console.log('in error',err));
-    console.log('this.state.dataLoaded = ',this.state.dataLoaded);
     // while (!this.state.dataLoaded) {
     //   console.log('Waiting....');
     //   let a = 2;
@@ -83,7 +79,6 @@ class App extends Component {
   }
 
   renderApp() {
-    console.log('topics[0]',this.state.topics[0]);
     return (
         <div className="App">
           <h2>NY Times Article Search Application</h2>
@@ -103,7 +98,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('in render', this.state.topics[0]);
     // if(!this.state.dataLoaded) {
     //   return (
     //     <div>
@@ -115,7 +109,9 @@ class App extends Component {
     // } else {
       return (
         <div className="App">
-          <h2>NY Times Article Search Application</h2>
+          <h2>NY Times Article Search Application
+            <img src={require('./images/poweredby_nytimes_150a.png')} className="nytimes_logo" alt="NY Times logo"/>
+          </h2>
           <Nav user_id={this.props.match.params.user_id}/>
           <div className="search1">
             <SearchUnit autofocus={true} user_id={this.props.match.params.user_id} unit_no="1" topic={this.state.topics[0]} />

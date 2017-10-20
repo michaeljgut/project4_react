@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import Auth from 'j-toker';
 import Nav from './Nav';
 import cookies from 'cookies-js';
 import DeleteArticle from './DeleteArticle';
@@ -49,29 +47,6 @@ class SavedArticles extends Component {
     console.log('in deleteOnClick');
     this.componentDidMount();
     this.setState({refreshPage: 'Goodbye'});
-  }
-
-  handleClick(e) {
-    e.preventDefault();
-     let headers = {
-       'access-token': cookies.get('access-token'),
-       'client': cookies.get('client'),
-       'token-type': cookies.get('token-type'),
-       'uid': cookies.get('uid'),
-       'expiry': cookies.get('expiry')
-     };
-    axios
-      .delete(`https://calm-coast-77310.herokuapp.com/articles?id=`, {
-        title: this.props.article.headline.main,
-        publication_date: this.props.article.pub_date,
-        url: this.props.article.web_url,
-        user_id: this.props.user_id,
-      })
-      .then(res => {
-        console.log('--------------->', this.state)
-        console.log(res);
-      })
-      .catch(err => console.log(err));
   }
 
   listArticles() {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import Auth from 'j-toker';
 import Nav from './Nav';
 import cookies from 'cookies-js';
 

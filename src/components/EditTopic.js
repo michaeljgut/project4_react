@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import Nav from './Nav';
 import cookies from 'cookies-js';
 
 
@@ -28,10 +27,6 @@ class EditTopic extends Component {
 
   handleInputChange(e) {
     e.preventDefault();
-    console.log('in handleInputChange');
-    console.log(e.target.value);
-    const name = e.target.name;
-    const value = e.target.value;
     this.setState({
       name: e.target.value,
     });

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 // import Auth from 'j-toker';
 //var Auth = require('j-toker');
 // Auth.configure({apiUrl: 'http://localhost:3000/'});
-import Auth from 'j-toker';
 import cookies from 'cookies-js';
 
 class TopArticles extends Component {
@@ -55,13 +53,13 @@ class TopArticles extends Component {
 
   render(){
     return (
-      <div className="search-page">
+      <ul className="search-page">
         <li className="article" key={this.props.article.published_date}>
           <a href={this.props.article.url}>{this.props.article.title}</a>
           <span> - {this.props.article.published_date.substr(0,10)}</span>
           {this.button()}
         </li>
-      </div>
+      </ul>
     )
   }
 }

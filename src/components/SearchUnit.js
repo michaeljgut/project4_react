@@ -41,42 +41,25 @@ class SearchUnit extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('this.props.topic = ', this.props.topic);
-    if (this.props.topic) {
-      if (this.props.topic.query_type === 1)
-        this.setState({query: this.props.topic.name});
-      else if (this.props.topic.query_type === 2)
-        this.setState({topic: this.props.topic.name});
-    }
-  }
-
-  componentWillMount() {
-    console.log('this.props.topic = ', this.props.topic);
     if (this.props.topic) {
       if (this.props.topic.query_type === 1)
         this.setState({query: this.props.topic.name});
       else if (this.props.topic.query_type === 2)
         this.setState({topic: this.props.topic.name});
       this.getAPIData();
-      this.render();
     }
   }
 
   componentDidMount() {
-    console.log('this.props.topic = ',this.props.topic);
     if (this.props.topic) {
       if (this.props.topic.query_type === 1)
         this.setState({query: this.props.topic.name});
       else
         this.setState({topic: this.props.topic.name});
-      console.log('this.state.query = ',this.state.query);
-      console.log('this.state.topic = ',this.state.topic);
       this.getAPIData();
     }
     let savedArticles = cookies.get(`saved-articles-${this.props.unit_no}`);
-    console.log(`saved-articles-${this.props.unit_no}`)
-    if (typeof(savedArticles) != 'undefined') {
-      console.log('savedArticles = ', savedArticles);
+    if (typeof(savedArticles) !== 'undefined') {
       this.setState({articles: savedArticles})
     }
   }
@@ -98,7 +81,7 @@ class SearchUnit extends Component {
     }
     console.log('getQuery = ', getQuery);
     // let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    let err_no = 429;
+//    let err_no = 429;
     // while (err_no === 429) {
       axios.get(getQuery)
         .then(res => {
@@ -107,13 +90,13 @@ class SearchUnit extends Component {
           console.log('this.props = ',this.props);
           if (this.state.query === '') {
             articleArray = res.data.results.map((item,index) => {
-              return <TopArticles article={item} user_id={this.props.user_id}/>;
+              return <TopArticles article={item} user_id={this.props.user_id} key={item.url}/>;
             });
           } else {
             let resultArray = res.data.response.docs.filter(item =>
               item.document_type === 'article' || item.document_type === 'blogpost');
             articleArray = resultArray.map((item,index) => {
-              return <QueryArticles article={item} user_id={this.props.user_id} />;
+              return <QueryArticles article={item} user_id={this.props.user_id} key={item.web_url}/>;
             });
             this.setState({query: ''});
             console.log('resultArray = ',resultArray);
@@ -125,11 +108,11 @@ class SearchUnit extends Component {
             articles: articleArray,
             displayArticles: true,
           });
-          err_no = 0;
+//          err_no = 0;
         })
         .catch(err => {
           console.log(err);
-          err_no = err;
+//          err_no = err;
         });
     // }
   }
@@ -269,7 +252,7 @@ class SearchUnit extends Component {
               <input className='submit' type="submit" value="SUBMIT" />
           </form>
           {this.button()}
-          <p>{this.state.articles.slice(0,this.state.more_articles ? 10 : 3)}</p>
+          <div>{this.state.articles.slice(0,this.state.more_articles ? 10 : 3)}</div>
         </div>
       </div>
       )

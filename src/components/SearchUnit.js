@@ -37,47 +37,65 @@ class SearchUnit extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.getAPIData();
+    this.getAPIData('State');
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('this.props.topic = ',this.props.topic)
     if (this.props.topic) {
       if (this.props.topic.query_type === 1)
         this.setState({query: this.props.topic.name});
       else if (this.props.topic.query_type === 2)
         this.setState({topic: this.props.topic.name});
-      this.getAPIData();
+      this.getAPIData('Props');
     }
   }
 
   componentDidMount() {
-    if (this.props.topic) {
-      if (this.props.topic.query_type === 1)
-        this.setState({query: this.props.topic.name});
-      else
-        this.setState({topic: this.props.topic.name});
-      this.getAPIData();
-    }
+    // console.log('this.props.topic = ',this.props.topic)
+    // if (this.props.topic) {
+    //   if (this.props.topic.query_type === 1)
+    //     this.setState({query: this.props.topic.name});
+    //   else
+    //     this.setState({topic: this.props.topic.name});
+    //   this.getAPIData();
+    // }
     let savedArticles = cookies.get(`saved-articles-${this.props.unit_no}`);
     if (typeof(savedArticles) !== 'undefined') {
       this.setState({articles: savedArticles})
     }
   }
 
-  getAPIData() {
+  getAPIData(callType) {
     let apiKey = 'api-key=' + process.env.REACT_APP_ARTICLES_API_KEY
     let getQuery = '';
     let articleArray = [];
-    if (this.state.query === '') {
-      getQuery = 'http://api.nytimes.com/svc/topstories/v2/' +
-        this.state.topic + '.json?' + apiKey;
-        this.setState({query_topic: this.state.topic,
-                       query_type: 2});
+    if (callType === 'State') {
+      if (this.state.query === '') {
+        getQuery = 'http://api.nytimes.com/svc/topstories/v2/' +
+          this.state.topic + '.json?' + apiKey;
+          this.setState({query_topic: this.state.topic,
+                         query_type: 2});
+      } else {
+        getQuery = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + this.state.query +
+          '&' + apiKey;
+          this.setState({query_topic: this.state.query,
+                         query_type: 1});
+      }
     } else {
-      getQuery = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + this.state.query +
-        '&' + apiKey;
-        this.setState({query_topic: this.state.query,
-                       query_type: 1});
+      // Get query from props since state won't have been loaded yet.
+      if (this.props.topic.query_type === 1) {
+        getQuery = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + this.props.topic.name +
+          '&' + apiKey;
+          this.setState({query_topic: this.props.topic.name,
+                         query_type: 1});
+      }
+      else if (this.props.topic.query_type === 2) {
+        getQuery = 'http://api.nytimes.com/svc/topstories/v2/' +
+          this.props.topic.name + '.json?' + apiKey;
+          this.setState({query_topic: this.props.topic.name,
+                         query_type: 2});
+      }
     }
     console.log('getQuery = ', getQuery);
     // let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
@@ -139,15 +157,15 @@ class SearchUnit extends Component {
 
   saveTopic(e) {
     e.preventDefault();
-   let headers = {
-     'access-token': cookies.get('access-token'),
-     'client': cookies.get('client'),
-     'token-type': cookies.get('token-type'),
-     'uid': cookies.get('uid'),
-     'expiry': cookies.get('expiry')
-   };
-   console.log('in query post ',headers);
-   console.log('this.query_topic = ', this.state.query_topic);
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+    console.log('in query post ',headers);
+    console.log('this.query_topic = ', this.state.query_topic);
     axios
       .post('/topics', {
         name: this.state.query_topic,
@@ -162,7 +180,6 @@ class SearchUnit extends Component {
   }
 
   autoFocus() {
-    console.log('this.state.query = ',this.state.query);
         // if (this.props.topic && !this.state.query_loaded) {
         //   if (this.props.topic.query_type === 1)
         //     this.setState({query: this.props.topic.name,

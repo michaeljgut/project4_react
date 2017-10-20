@@ -109,9 +109,8 @@ class App extends Component {
     // } else {
       return (
         <div className="App">
-          <h2>NY Times Article Search Application
-            <img src={require('./images/poweredby_nytimes_150a.png')} className="nytimes_logo" alt="NY Times logo"/>
-          </h2>
+          <h2>NY Times Article Search Application</h2>
+          <img src={require('./images/poweredby_nytimes_150a.png')} className="nytimes_logo" alt="NY Times logo"/>
           <Nav user_id={this.props.match.params.user_id}/>
           <div className="search1">
             <SearchUnit autofocus={true} user_id={this.props.match.params.user_id} unit_no="1" topic={this.state.topics[0]} />

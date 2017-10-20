@@ -12,7 +12,6 @@ class SavedArticles extends Component {
       refreshPage: 'Hello',
       articles: []
     };
-    this.handleClick = this.handleClick.bind(this);
     this.deleteOnClick = this.deleteOnClick.bind(this);
   }
 
@@ -51,7 +50,7 @@ class SavedArticles extends Component {
 
   listArticles() {
     return this.state.articles.map(item => {
-      return <DeleteArticle item={item} deleteOnClick={this.deleteOnClick} />
+      return <DeleteArticle item={item} deleteOnClick={this.deleteOnClick} key={item.url}/>
     })
   }
 

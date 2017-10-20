@@ -93,12 +93,26 @@ input {
   margin-bottom: .5em;
 }
 
+img {
+  margin-top: -1em;
+}
+
+.topic-list {
+  list-style: none;
+  margin-bottom: .5em;
+}
+
+.search-unit {
+  max-width: 40em;
+}
+
 @media (max-width: 500px) {
   .search1, .search2, .search3, .search4 {
     float: none;
+    margin: 0 auto;
   }
 
-  .App {
+/*  .App {
     text-align: left;
   }
-}
+*/}

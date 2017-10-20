@@ -43,9 +43,9 @@ componentDidMount() {
   topicsMap(array){
     return array.map((topic, index) => {
       console.log('topic = ',topic);
-        return <p>
+        return <li key={topic.id} className="topic-list" >
             <Link to={`/edit/${topic.id}/topic/${topic.name}/${topic.query_type}`}>{topic.name}</Link>
-          </p>
+          </li>
     })
   }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import cookies from 'cookies-js';
+import Nav from './Nav';
 
 
 class EditTopic extends Component {

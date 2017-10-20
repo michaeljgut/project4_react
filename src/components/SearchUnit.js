@@ -72,12 +72,12 @@ class SearchUnit extends Component {
     let articleArray = [];
     if (callType === 'State') {
       if (this.state.query === '') {
-        getQuery = 'http://api.nytimes.com/svc/topstories/v2/' +
+        getQuery = 'https://api.nytimes.com/svc/topstories/v2/' +
           this.state.topic + '.json?' + apiKey;
           this.setState({query_topic: this.state.topic,
                          query_type: 2});
       } else {
-        getQuery = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + this.state.query +
+        getQuery = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + this.state.query +
           '&' + apiKey;
           this.setState({query_topic: this.state.query,
                          query_type: 1});
@@ -85,13 +85,13 @@ class SearchUnit extends Component {
     } else {
       // Get query from props since state won't have been loaded yet.
       if (this.props.topic.query_type === 1) {
-        getQuery = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + this.props.topic.name +
+        getQuery = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + this.props.topic.name +
           '&' + apiKey;
           this.setState({query_topic: this.props.topic.name,
                          query_type: 1});
       }
       else if (this.props.topic.query_type === 2) {
-        getQuery = 'http://api.nytimes.com/svc/topstories/v2/' +
+        getQuery = 'https://api.nytimes.com/svc/topstories/v2/' +
           this.props.topic.name + '.json?' + apiKey;
           this.setState({query_topic: this.props.topic.name,
                          query_type: 2});

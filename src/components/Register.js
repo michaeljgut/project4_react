@@ -46,7 +46,7 @@ class Register extends Component {
               "confirm_success_url": 'www.google.com'
     }
     console.log('fb = ',fb);
-    axios('https://calm-coast-77310.herokuapp.com/auth', {
+    axios('/auth', {
       method: 'POST',
       header: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       data: fb

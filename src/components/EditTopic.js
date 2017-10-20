@@ -88,7 +88,7 @@ class EditTopic extends Component {
     let path = `/topics/edit/${this.state.user_id}`
     console.log('path in topiceditform = ',path);
     return (
-      <div className="edit">
+      <div className="edit-topic">
         <h2>Edit Topic</h2>
         <Nav user_id={this.state.user_id}/>
         <form onSubmit={this.handleFormSubmit}>

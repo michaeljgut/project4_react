@@ -31,11 +31,23 @@
 }
 
 .edit-topics-header {
+  font-size: 1.25em;
   text-align: center;
 }
 
 .edit-topic {
+  font-size: 1.25em;
   text-align: center;
+}
+
+.edit-button {
+  font-size: 1em;
+  margin-left: .5em;
+}
+
+.topic-placeholder {
+  font-size: 1.25em;
+  margin-top: 1em;
 }
 
 .auth-header {

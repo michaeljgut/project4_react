@@ -92,7 +92,7 @@ class EditTopic extends Component {
         <h2>Edit Topic</h2>
         <Nav user_id={this.state.user_id}/>
         <form onSubmit={this.handleFormSubmit}>
-          <input className='term-placeholder'
+          <input className='topic-placeholder'
             type="text"
             placeholder="topic"
             name="name"
@@ -100,10 +100,10 @@ class EditTopic extends Component {
             onChange={this.handleInputChange}
             autoFocus
           />
-          <input className='submit' type="submit" value="SUBMIT" />
+          <input className='edit-button' type="submit" value="SUBMIT" />
         </form>
-        <button onClick={this.deleteTopic}>DELETE</button>
-        <button onClick={this.cancelTopic}>CANCEL</button>
+        <button className='edit-button' onClick={this.deleteTopic}>DELETE</button>
+        <button className='edit-button' onClick={this.cancelTopic}>CANCEL</button>
         {this.state.fireRedirect
           ? <Redirect push to={path} />
           : ''}

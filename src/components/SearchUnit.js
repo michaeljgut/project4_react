@@ -28,6 +28,8 @@ class SearchUnit extends Component {
     let name = event.target.name;
     let value = event.target.value;
     this.setState({[name]: value});
+    if (event.keyCode === 13)
+      this.handleSubmit(event);
   }
 
   handleClick(event) {
@@ -150,7 +152,7 @@ class SearchUnit extends Component {
   saveButton() {
     let user_id = cookies.get(`user_id`);
     if (Number(user_id) > 0) {
-      return <button className='save-articles-icon' onClick={this.saveTopic}>Save Topic</button>;
+      return <button type="button" className='save-articles-icon' onClick={this.saveTopic}>Save Topic</button>;
     } else
     return '';
   }

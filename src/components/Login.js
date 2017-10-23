@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import Auth from 'j-toker'
 import Nav from './Nav';
 import cookies from 'cookies-js';
-Auth.configure({apiUrl: '/'});
 
 class Login extends Component {
 

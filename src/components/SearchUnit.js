@@ -42,6 +42,37 @@ class SearchUnit extends Component {
     this.getAPIData('State');
   }
 
+  tempDataFound(user_id,unit_no) {
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+    console.log('in tempDataFound ',headers);
+    axios
+      .get('/temp_articles', {
+        user_id: user_id,
+        search_unit: unit_no
+      }, {headers: headers})
+      .then(res => {
+        console.log('--------------->', this.state)
+        console.log(res);
+        // this.setState({
+        //   newId: res.data.data.id,
+        //   fireRedirect: true
+        // });
+        return false;
+      })
+      .catch(err => console.log(err));
+
+  }
+
+  callGetAPIDataProps() {
+        this.getAPIData('Props');
+  }
+
   componentWillReceiveProps(nextProps) {
     console.log('this.props.topic = ',this.props.topic)
     if (this.props.topic) {
@@ -49,7 +80,9 @@ class SearchUnit extends Component {
         this.setState({query: this.props.topic.name});
       else if (this.props.topic.query_type === 2)
         this.setState({topic: this.props.topic.name});
-      this.getAPIData('Props');
+      if (!this.tempDataFound(this.props.user_id,this.props.unit_no)) {
+        setTimeout(this.callGetAPIDataProps.bind(this), (Number(this.props.unit_no)-1) * 1000 + 100)
+      }
     }
   }
 
@@ -66,6 +99,57 @@ class SearchUnit extends Component {
     if (typeof(savedArticles) !== 'undefined') {
       this.setState({articles: savedArticles})
     }
+  }
+
+  postTempQueryArticle(article) {
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+    axios
+      .post('/temp_articles', {
+        title: article.headline.main,
+        publication_date: article.pub_date,
+        url: article.web_url,
+        user_id: this.props.user_id,
+        search_unit: this.props.unit_no
+      }, {headers: headers})
+      .then(res => {
+        // this.setState({
+        //   newId: res.data.data.id,
+        //   fireRedirect: true
+        // });
+      })
+      .catch(err => console.log(err));
+  }
+
+  postTempTopArticle(article) {
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+
+    axios
+      .post('/temp_articles', {
+        title: article.title,
+        publication_date: article.published_date,
+        url: article.url,
+        user_id: this.props.user_id,
+        search_unit: this.props.unit_no
+      }, {headers: headers,})
+      .then(res => {
+        // this.setState({
+        //   newId: res.data.data.id,
+        //   fireRedirect: true
+        // });
+      })
+      .catch(err => console.log(err));
   }
 
   getAPIData(callType) {
@@ -110,12 +194,14 @@ class SearchUnit extends Component {
           console.log('this.props = ',this.props);
           if (this.state.query === '') {
             articleArray = res.data.results.map((item,index) => {
+              this.postTempTopArticle(item);
               return <TopArticles article={item} user_id={this.props.user_id} key={item.url}/>;
             });
           } else {
             let resultArray = res.data.response.docs.filter(item =>
               item.document_type === 'article' || item.document_type === 'blogpost');
             articleArray = resultArray.map((item,index) => {
+              this.postTempQueryArticle(item);
               return <QueryArticles article={item} user_id={this.props.user_id} key={item.web_url}/>;
             });
             this.setState({query: ''});
@@ -205,6 +291,7 @@ class SearchUnit extends Component {
         // }
 
         return <input
+                className="input-query"
                 type="text"
                 placeholder="Query"
                 name="query"
@@ -215,6 +302,7 @@ class SearchUnit extends Component {
       }
       else
         return <input
+                className="input-query"
                 type="text"
                 placeholder="Query"
                 name="query"
@@ -231,14 +319,14 @@ class SearchUnit extends Component {
         <h3>Search News Stories</h3>
         <div className="get-articles">
           <form onSubmit={this.handleSubmit}>
-            <label>
+            <label className="input-label">
               Enter a query:
             </label>
             {this.autoFocus()}
             {this.saveButton()}
             <br />
             <label>
-              Or select a NY Times Topic:,
+              Or select a NY Times Topic:
               <select name="topic" value={this.state.topic} onChange={this.handleChange}>
                 <option value="home">Home</option>
                 <option value="arts">Arts</option>

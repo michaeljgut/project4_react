@@ -24,14 +24,14 @@ class QueryArticles extends Component {
 
   handleClick(e) {
     e.preventDefault();
-   let headers = {
-     'access-token': cookies.get('access-token'),
-     'client': cookies.get('client'),
-     'token-type': cookies.get('token-type'),
-     'uid': cookies.get('uid'),
-     'expiry': cookies.get('expiry')
-   };
-   console.log('in query post ',headers);
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
+    console.log('in query post ',headers);
     axios
       .post('/articles', {
         title: this.props.article.headline.main,

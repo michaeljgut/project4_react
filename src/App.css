@@ -21,8 +21,8 @@
 }
 
 .nav-link2 {
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: .5em;
+  padding-right: .5em;
   font-family: 'Nunito', sans-serif;
   font-size: 1em;
   font-weight: 100;
@@ -134,6 +134,11 @@ img {
   max-width: 40em;
 }
 
+.save-page {
+  font-size: 1.5em;
+  text-align: center;
+}
+
 @media (max-width: 1250px) {
   .search1, .search2 {
     float: none;
@@ -142,6 +147,18 @@ img {
 
   .search-unit {
     max-width: none;
+  }
+
+  .save-page {
+    font-size: 1em;
+  }
+
+  .edit-topics-header {
+    font-size: 1em;
+  }
+
+  .edit-topic {
+    font-size: 1em;
   }
 
 }

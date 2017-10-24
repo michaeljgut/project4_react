@@ -24,13 +24,13 @@ class TopArticles extends Component {
 
   handleClick(e) {
     e.preventDefault();
-   let headers = {
-     'access-token': cookies.get('access-token'),
-     'client': cookies.get('client'),
-     'token-type': cookies.get('token-type'),
-     'uid': cookies.get('uid'),
-     'expiry': cookies.get('expiry')
-   };
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
 
     axios
       .post('/articles', {
@@ -38,8 +38,7 @@ class TopArticles extends Component {
         publication_date: this.props.article.published_date,
         url: this.props.article.url,
         user_id: this.props.user_id,
-      }, {        headers: headers,
-})
+      }, {headers: headers,})
       .then(res => {
         console.log('--------------->', this.state)
         console.log(res);

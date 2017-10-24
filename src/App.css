@@ -1,5 +1,9 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700');
+
 .App {
   text-align: center;
+  font-family: 'Nunito', sans-serif;
 }
 
 .article {
@@ -109,6 +113,14 @@ input {
   margin-bottom: .5em;
 }
 
+label {
+  margin: 0, 5em, .5em, 5em;
+}
+
+.input-label {
+  margin: 0, 5em, .5em, 5em;
+}
+
 img {
   margin-top: -1em;
 }
@@ -122,13 +134,14 @@ img {
   max-width: 40em;
 }
 
-@media (max-width: 500px) {
-  .search1, .search2, .search3, .search4 {
+@media (max-width: 1250px) {
+  .search1, .search2 {
     float: none;
-    margin: 0 auto;
+    text-align: center;
   }
 
-/*  .App {
-    text-align: left;
+  .search-unit {
+    max-width: none;
   }
-*/}
+
+}

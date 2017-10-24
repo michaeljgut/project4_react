@@ -81,7 +81,7 @@ class SearchUnit extends Component {
       else if (this.props.topic.query_type === 2)
         this.setState({topic: this.props.topic.name});
       if (!this.tempDataFound(this.props.user_id,this.props.unit_no)) {
-        setTimeout(this.callGetAPIDataProps.bind(this), (Number(this.props.unit_no)-1) * 1000 + 100)
+        setTimeout(this.callGetAPIDataProps.bind(this), (Number(this.props.unit_no)-1) * 1100)
       }
     }
   }

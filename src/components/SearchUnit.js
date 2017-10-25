@@ -108,7 +108,7 @@ class SearchUnit extends Component {
         this.setState({query: this.props.topic.name});
       else if (this.props.topic.query_type === 2)
         this.setState({topic: this.props.topic.name});
-      setTimeout(this.callCheckIfDBLoaded.bind(this), 2000)
+      setTimeout(this.callCheckIfDBLoaded.bind(this), 3000)
     }
   }
 
@@ -200,6 +200,26 @@ class SearchUnit extends Component {
     let getQuery = '';
     let articleArray = [];
     if (callType === 'State') {
+      // Delete temp articles from last query
+      let headers = {
+        'access-token': cookies.get('access-token'),
+        'client': cookies.get('client'),
+        'token-type': cookies.get('token-type'),
+        'uid': cookies.get('uid'),
+        'expiry': cookies.get('expiry')
+      };
+      let path = `/temp_articles/temp?user_id=${this.props.user_id}&unit_no=${this.props.unit_no}`;
+      axios
+        .delete(path, {headers: headers})
+        .then(res => {
+          console.log('--------------->', this.state)
+          console.log(res);
+          // this.setState({
+          //   newId: res.data.data.id,
+          //   fireRedirect: true
+          // });
+        })
+        .catch(err => console.log(err));
       if (this.state.query === '') {
         getQuery = 'https://api.nytimes.com/svc/topstories/v2/' +
           this.state.topic + '.json?' + apiKey;

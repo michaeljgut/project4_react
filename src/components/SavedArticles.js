@@ -9,10 +9,12 @@ class SavedArticles extends Component {
   constructor(props){
     super(props);
     this.state ={
-      refreshPage: 'Hello',
+      query: '',
       articles: []
     };
     this.deleteOnClick = this.deleteOnClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -45,13 +47,32 @@ class SavedArticles extends Component {
   deleteOnClick() {
     console.log('in deleteOnClick');
     this.componentDidMount();
-    this.setState({refreshPage: 'Goodbye'});
+  }
+
+  handleChange(event) {
+    let name = event.target.name;
+    let value = event.target.value;
+    this.setState({[name]: value});
+    if (event.keyCode === 13)
+      this.handleSubmit(event);
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
   }
 
   listArticles() {
-    return this.state.articles.map(item => {
-      return <DeleteArticle item={item} deleteOnClick={this.deleteOnClick} key={item.url}/>
-    })
+    if (this.state.query === '' && this.state.query === '*') {
+      return this.state.articles.map(item => {
+        return <DeleteArticle item={item} deleteOnClick={this.deleteOnClick} key={item.url}/>
+      })
+    } else {
+      return this.state.articles.filter( article => {
+        return article.title.match(this.state.query) ? article : ''
+      }).map(item => {
+        return <DeleteArticle item={item} deleteOnClick={this.deleteOnClick} key={item.url}/>
+      })
+    }
   }
 
   render(){
@@ -60,6 +81,21 @@ class SavedArticles extends Component {
         <h2 className="save-header">Saved Articles</h2>
         <Nav user_id={this.props.match.params.user_id}/>
         <br />
+        <form onSubmit={this.handleSubmit}>
+          <label className="input-label">
+            Search Article Titles:
+          </label>
+          <input
+                className="input-query"
+                type="text"
+                placeholder="Query"
+                name="query"
+                value={this.state.query}
+                onChange={this.handleChange}
+                autoFocus
+          />
+          <input className='submit' type="submit" value="SUBMIT" />
+        </form>
         {this.listArticles()}
       </div>
     )

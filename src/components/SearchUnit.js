@@ -41,7 +41,7 @@ class SearchUnit extends Component {
     this.getAPIData('State');
   }
 
-  tempDataFoundAndLoad(user_id,unit_no) {
+  getTempData(user_id,unit_no) {
     let headers = {
       'access-token': cookies.get('access-token'),
       'client': cookies.get('client'),
@@ -98,7 +98,11 @@ class SearchUnit extends Component {
       console.log('Got data from DB');
     }
     else {
-      setTimeout(this.callGetAPIDataProps.bind(this), (Number(this.props.unit_no)-1) * 1100)
+      if (this.props.topic.query_type === 1){
+        setTimeout(this.callGetAPIDataProps.bind(this), (Number(this.props.unit_no)-1) * 1100)
+      } else {
+        this.callGetAPIDataProps();
+      }
     }
   }
 
@@ -106,8 +110,10 @@ class SearchUnit extends Component {
     if (this.props.topic) {
       if (this.props.topic.query_type === 1)
         this.setState({query: this.props.topic.name});
-      else if (this.props.topic.query_type === 2)
+      else if (this.props.topic.query_type === 2) {
+        console.log('this.props.topic.name = ',this.props.topic.name);
         this.setState({topic: this.props.topic.name});
+      }
       setTimeout(this.callCheckIfDBLoaded.bind(this), 3000)
     }
   }
@@ -121,7 +127,7 @@ class SearchUnit extends Component {
     //     this.setState({topic: this.props.topic.name});
     //   this.getAPIData();
     // }
-    this.tempDataFoundAndLoad(this.props.user_id,this.props.unit_no);
+    this.getTempData(this.props.user_id,this.props.unit_no);
   }
 
   postTempQueryArticle(article) {
@@ -199,6 +205,7 @@ class SearchUnit extends Component {
     let apiKey = 'api-key=' + process.env.REACT_APP_ARTICLES_API_KEY
     let getQuery = '';
     let articleArray = [];
+    console.log('callType = ',callType);
     if (callType === 'State') {
       // Delete temp articles from last query
       let headers = {
@@ -248,46 +255,40 @@ class SearchUnit extends Component {
     }
     console.log('getQuery = ', getQuery);
     // let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-//    let err_no = 429;
-    // while (err_no === 429) {
-      axios.get(getQuery)
-        .then(res => {
-          if (this.state.query === '') {
-            console.log('res.data.results = ',res.data.results);
-//            let tempArray = res.data.results.slice(0,10);
-            let sortArray = res.data.results.slice(0,10).sort(this.compareTop);
-            articleArray = sortArray.map((item,index) => {
-              this.postTempTopArticle(item);
-              let itemTemp = {
-                headline: {main: item.title},
-                pub_date: item.published_date,
-                web_url: item.url,
-              }
-              return <Article article={itemTemp} user_id={this.props.user_id} key={item.url}/>;
-            });
-          } else {
-            console.log('res.data.response.docs = ',res.data.response.docs);
-//            let sortArray = res.data.response.docs.sort()
-            let resultArray = res.data.response.docs.filter(item =>
-              item.document_type === 'article' || item.document_type === 'blogpost');
-            articleArray = resultArray.sort(this.compareQuery).map((item,index) => {
-              this.postTempQueryArticle(item);
-              return <Article article={item} user_id={this.props.user_id} key={item.web_url}/>;
-            });
-            this.setState({query: ''});
-          }
-          this.setState({
-            articles_loaded: true,
-            articles: articleArray,
-            displayArticles: true,
+    axios.get(getQuery)
+      .then(res => {
+        console.log('this.state.query = ',this.state.query);
+        if (this.state.query === '') {
+          console.log('res.data.results = ',res.data.results);
+          let sortArray = res.data.results.slice(0,10).sort(this.compareTop);
+          articleArray = sortArray.map((item,index) => {
+            this.postTempTopArticle(item);
+            let itemTemp = {
+              headline: {main: item.title},
+              pub_date: item.published_date,
+              web_url: item.url,
+            }
+            return <Article article={itemTemp} user_id={this.props.user_id} key={item.url}/>;
           });
-//          err_no = 0;
-        })
-        .catch(err => {
-          console.log(err);
-//          err_no = err;
+        } else {
+          console.log('res.data.response.docs = ',res.data.response.docs);
+          let resultArray = res.data.response.docs.filter(item =>
+            item.document_type === 'article' || item.document_type === 'blogpost');
+          articleArray = resultArray.sort(this.compareQuery).map((item,index) => {
+            this.postTempQueryArticle(item);
+            return <Article article={item} user_id={this.props.user_id} key={item.web_url}/>;
+          });
+          this.setState({query: ''});
+        }
+        this.setState({
+          articles_loaded: true,
+          articles: articleArray,
+          displayArticles: true,
         });
-    // }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   button() {

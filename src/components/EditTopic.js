@@ -87,28 +87,78 @@ class EditTopic extends Component {
   render() {
     let path = `/topics/edit/${this.state.user_id}`
     console.log('path in topiceditform = ',path);
-    return (
-      <div className="edit-topic">
-        <h2>Edit Topic</h2>
-        <Nav user_id={this.state.user_id}/>
-        <form onSubmit={this.handleFormSubmit}>
-          <input className='topic-placeholder'
-            type="text"
-            placeholder="topic"
-            name="name"
-            value={this.state.name}
-            onChange={this.handleInputChange}
-            autoFocus
-          />
-          <input className='edit-button' type="submit" value="SUBMIT" />
-        </form>
-        <button className='edit-button' onClick={this.deleteTopic}>DELETE</button>
-        <button className='edit-button' onClick={this.cancelTopic}>CANCEL</button>
-        {this.state.fireRedirect
-          ? <Redirect push to={path} />
-          : ''}
-      </div>
-    );
+    if (this.props.match.params.query_type === '1') {
+      return (
+        <div className="edit-topic">
+          <h2>Edit Topic</h2>
+          <Nav user_id={this.state.user_id}/>
+          <form onSubmit={this.handleFormSubmit}>
+            <input className='topic-placeholder'
+              type="text"
+              placeholder="topic"
+              name="name"
+              value={this.state.name}
+              onChange={this.handleInputChange}
+              autoFocus
+            />
+            <input className='edit-button' type="submit" value="SUBMIT" />
+          </form>
+          <button className='edit-button' onClick={this.deleteTopic}>DELETE</button>
+          <button className='edit-button' onClick={this.cancelTopic}>CANCEL</button>
+          {this.state.fireRedirect
+            ? <Redirect push to={path} />
+            : ''}
+        </div>
+      );
+    } else {
+      return (
+        <div className="edit-topic">
+          <h2>Edit Topic</h2>
+          <Nav user_id={this.state.user_id}/>
+          <form onSubmit={this.handleFormSubmit}>
+            <label className='topic-placeholder'>
+              Select a NY Times Topic:
+              <select className='topic-placeholder' name="name" value={this.state.name}
+                onChange={this.handleInputChange}>
+                <option value="home">Home</option>
+                <option value="arts">Arts</option>
+                <option value="automobiles">Automobiles</option>
+                <option value="books">Books</option>
+                <option value="business">Business</option>
+                <option value="fashion">Fashion</option>
+                <option value="food">Food</option>
+                <option value="health">Health</option>
+                <option value="insider">Insider</option>
+                <option value="magazine">Magazine</option>
+                <option value="movies">Movies</option>
+                <option value="national">National</option>
+                <option value="nyregion">New York Region</option>
+                <option value="obituaries">Obituaries</option>
+                <option value="opinion">Opinion</option>
+                <option value="politics">Politics</option>
+                <option value="realestate">Real Estate</option>
+                <option value="science">Science</option>
+                <option value="sports">Sports</option>
+                <option value="sundayreview">Sunday Review</option>
+                <option value="technology">Technology</option>
+                <option value="theater">Theater</option>
+                <option value="tmagazine">New York Times Magazine</option>
+                <option value="travel">Travel</option>
+                <option value="upshot">Upshot</option>
+                <option value="world">World</option>
+                autoFocus
+              </select>
+            </label>
+              <input className='edit-button' type="submit" value="SUBMIT" />
+          </form>
+          <button className='edit-button' onClick={this.deleteTopic}>DELETE</button>
+          <button className='edit-button' onClick={this.cancelTopic}>CANCEL</button>
+          {this.state.fireRedirect
+            ? <Redirect push to={path} />
+            : ''}
+        </div>
+      );
+    }
   }
 }
 

@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import Auth from 'j-toker';
-//var Auth = require('j-toker');
-// Auth.configure({apiUrl: 'http://localhost:3000/'});
 import cookies from 'cookies-js';
 
-class QueryArticles extends Component {
+class Article extends Component {
 
   constructor(props){
     super(props);
@@ -64,4 +61,4 @@ class QueryArticles extends Component {
 }
 
 
-export default QueryArticles;
+export default Article;

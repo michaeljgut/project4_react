@@ -55,7 +55,7 @@ componentDidMount() {
       console.log('user_id = ',this.props.match.params.user_id);
       return (
         <div>
-          <h4>Click To Edit Topic</h4>
+          <h4>Click Link Below To Edit Topic</h4>
           {this.topicsMap(this.state.topics)}
         </div>
       )
@@ -67,7 +67,7 @@ componentDidMount() {
       <div className='edit-topics-header'>
           <h2>Edit Topics</h2>
           <Nav user_id={this.props.match.params.user_id}/>
-          <div className='topics-page'>
+          <div className='topic-placeholder'>
             {this.renderTopics()}
           </div>
       </div>

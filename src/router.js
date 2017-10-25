@@ -10,8 +10,8 @@ import EditTopic from './components/EditTopic.js'
 export default (
     <BrowserRouter>
         <div className='router'>
-            <Route exact path='/home' component={App} />
-            <Route exact path='/' component={App} />
+            <Route exact path='/home' component={Login} />
+            <Route exact path='/' component={Login} />
             <Route exact path='/articles/user/:user_id' component={SavedArticles} />
             <Route exact path='/search/user/:user_id' component={App} />
             <Route exact path='/login' component={Login} />

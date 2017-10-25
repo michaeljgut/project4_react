@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import TopArticles from './TopArticles';
-import QueryArticles from './QueryArticles';
+import Article from './Article';
 import cookies from 'cookies-js';
 
 class SearchUnit extends Component {
@@ -42,7 +41,7 @@ class SearchUnit extends Component {
     this.getAPIData('State');
   }
 
-  tempDataFound(user_id,unit_no) {
+  tempDataFoundAndLoad(user_id,unit_no) {
     let headers = {
       'access-token': cookies.get('access-token'),
       'client': cookies.get('client'),
@@ -50,12 +49,9 @@ class SearchUnit extends Component {
       'uid': cookies.get('uid'),
       'expiry': cookies.get('expiry')
     };
-    console.log('in tempDataFound ',headers);
+    let path = `/temp_articles?user_id=${user_id}&unit_no=${unit_no}`;
     axios
-      .get('/temp_articles', {
-        user_id: user_id,
-        search_unit: unit_no
-      }, {headers: headers})
+      .delete(path, {headers: headers})
       .then(res => {
         console.log('--------------->', this.state)
         console.log(res);
@@ -63,26 +59,56 @@ class SearchUnit extends Component {
         //   newId: res.data.data.id,
         //   fireRedirect: true
         // });
-        return false;
       })
       .catch(err => console.log(err));
-
+    axios
+      .get(path, {headers: headers})
+      .then(res => {
+        console.log('--------------->', this.state)
+        console.log(res.data);
+        let articleArray = res.data.map(item => {
+          let itemTemp = {
+            headline: {main: item.title},
+            pub_date: item.publication_date,
+            web_url: item.url,
+          }
+          return <Article article={itemTemp} user_id={this.props.user_id} key={item.url}/>;
+        })
+        if (res.data.length > 0) {
+          this.setState({
+            articles_loaded: true,
+            articles: articleArray,
+            displayArticles: true,
+          });
+        }
+        // this.setState({
+        //   newId: res.data.data.id,
+        //   fireRedirect: true
+        // });
+      })
+      .catch(err => console.log(err));
   }
 
   callGetAPIDataProps() {
         this.getAPIData('Props');
   }
 
+  callCheckIfDBLoaded() {
+    if (this.state.articles_loaded) {
+      console.log('Got data from DB');
+    }
+    else {
+      setTimeout(this.callGetAPIDataProps.bind(this), (Number(this.props.unit_no)-1) * 1100)
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    console.log('this.props.topic = ',this.props.topic)
     if (this.props.topic) {
       if (this.props.topic.query_type === 1)
         this.setState({query: this.props.topic.name});
       else if (this.props.topic.query_type === 2)
         this.setState({topic: this.props.topic.name});
-      if (!this.tempDataFound(this.props.user_id,this.props.unit_no)) {
-        setTimeout(this.callGetAPIDataProps.bind(this), (Number(this.props.unit_no)-1) * 1100)
-      }
+      setTimeout(this.callCheckIfDBLoaded.bind(this), 2000)
     }
   }
 
@@ -95,10 +121,7 @@ class SearchUnit extends Component {
     //     this.setState({topic: this.props.topic.name});
     //   this.getAPIData();
     // }
-    let savedArticles = cookies.get(`saved-articles-${this.props.unit_no}`);
-    if (typeof(savedArticles) !== 'undefined') {
-      this.setState({articles: savedArticles})
-    }
+    this.tempDataFoundAndLoad(this.props.user_id,this.props.unit_no);
   }
 
   postTempQueryArticle(article) {
@@ -152,6 +175,26 @@ class SearchUnit extends Component {
       .catch(err => console.log(err));
   }
 
+  compareQuery(a, b) {
+    if (a.pub_date + a.headline.main > b.pub_date + b.headline.main) {
+      return -1;
+    } else if (a.pub_date + a.headline.main < b.pub_date + b.headline.main) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  compareTop(a, b) {
+    if (a.published_date + a.title > b.published_date + b.title) {
+      return -1;
+    } else if (a.published_date + a.title < b.published_date + b.title) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
   getAPIData(callType) {
     let apiKey = 'api-key=' + process.env.REACT_APP_ARTICLES_API_KEY
     let getQuery = '';
@@ -189,26 +232,30 @@ class SearchUnit extends Component {
     // while (err_no === 429) {
       axios.get(getQuery)
         .then(res => {
-          console.log('--------------->', this.state);
-          console.log('res = ',res);
-          console.log('this.props = ',this.props);
           if (this.state.query === '') {
-            articleArray = res.data.results.map((item,index) => {
+            console.log('res.data.results = ',res.data.results);
+//            let tempArray = res.data.results.slice(0,10);
+            let sortArray = res.data.results.slice(0,10).sort(this.compareTop);
+            articleArray = sortArray.map((item,index) => {
               this.postTempTopArticle(item);
-              return <TopArticles article={item} user_id={this.props.user_id} key={item.url}/>;
+              let itemTemp = {
+                headline: {main: item.title},
+                pub_date: item.published_date,
+                web_url: item.url,
+              }
+              return <Article article={itemTemp} user_id={this.props.user_id} key={item.url}/>;
             });
           } else {
+            console.log('res.data.response.docs = ',res.data.response.docs);
+//            let sortArray = res.data.response.docs.sort()
             let resultArray = res.data.response.docs.filter(item =>
               item.document_type === 'article' || item.document_type === 'blogpost');
-            articleArray = resultArray.map((item,index) => {
+            articleArray = resultArray.sort(this.compareQuery).map((item,index) => {
               this.postTempQueryArticle(item);
-              return <QueryArticles article={item} user_id={this.props.user_id} key={item.web_url}/>;
+              return <Article article={item} user_id={this.props.user_id} key={item.web_url}/>;
             });
             this.setState({query: ''});
-            console.log('resultArray = ',resultArray);
           }
-          console.log(articleArray[0]);
-          cookies.set(`saved-articles-${this.props.unit_no}`, articleArray[0].title);
           this.setState({
             articles_loaded: true,
             articles: articleArray,

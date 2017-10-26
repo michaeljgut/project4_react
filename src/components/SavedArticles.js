@@ -62,7 +62,7 @@ class SavedArticles extends Component {
   }
 
   listArticles() {
-    if (this.state.query === '' && this.state.query === '*') {
+    if (this.state.query === '' || this.state.query === '*') {
       return this.state.articles.map(item => {
         return <DeleteArticle item={item} deleteOnClick={this.deleteOnClick} key={item.url}/>
       })

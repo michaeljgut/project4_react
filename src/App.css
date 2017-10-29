@@ -4,9 +4,12 @@
 .App {
   text-align: center;
   font-family: 'Nunito', sans-serif;
+  margin-top: -1rem;
 }
 
 .article {
+  margin-left: -2.5rem;
+  text-align: center;
   list-style: none;
 }
 
@@ -159,6 +162,10 @@ img {
 
   .edit-topic {
     font-size: 1em;
+  }
+  .nav-link2 {
+    padding-left: .4rem;
+    padding-right: .4rem;
   }
 
 }

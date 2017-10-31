@@ -60,18 +60,16 @@ class Login extends Component {
       return (
         <div className="auth-page">
 
-          <h2 className="auth-header">Sign In To Save Articles!</h2>
-          <br />
+          <h2 className="auth-header">Sign In To Search And Save Articles!</h2>
           <Nav user_id={this.props.match.params.user_id}/>
           <br/>
-          <div className="auth-block">
-            <form onSubmit={(e) => this.handleFormSubmit(e)}>
-              <input name="email" type="text" placeholder="email" required autoFocus onChange={this.handleInputChange}/>
-              <br />
-              <input name="password" type="password" placeholder="password" required onChange={this.handleInputChange}/>
-              <input className="submit" type="submit" value="LOGIN" />
-            </form>
-          </div>
+          <form className="auth-block" onSubmit={(e) => this.handleFormSubmit(e)}>
+            <input name="email" type="text" placeholder="email" required autoFocus onChange={this.handleInputChange}/>
+            <br />
+            <input name="password" type="password" placeholder="password" required onChange={this.handleInputChange}/>
+            <br />
+            <input className="submit" type="submit" value="LOGIN" />
+          </form>
 
           {this.state.fireRedirect
               ? <Redirect push to={path} />

@@ -74,15 +74,19 @@ class Register extends Component {
     let path = '/search/user/' + this.state.user_id;
     return (
       <div className="auth-page">
-        <h2 className="auth-header">Register to save articles!</h2>
+        <h2 className="reg-header">Register to save articles!</h2>
         <Nav user_id={this.props.match.params.user_id}/>
         <br />
         <div className="auth-block">
           <form onSubmit={(e) => this.handleFormSubmit(e)}>
             <input name="name" type="text" placeholder="Name" required autoFocus onChange={this.handleInputChange}/>
+            <br />
             <input name="email" type="text" placeholder="Email" required onChange={this.handleInputChange}/>
+            <br />
             <input name="password" type="password" placeholder="Password" required onChange={this.handleInputChange}/>
+            <br />
             <input name="passwordConfirmation" type="password" placeholder="Password Confirmation" required onChange={this.handleInputChange}/>
+            <br />
             <input className='submit' type="submit" value="SIGN UP" />
           </form>
         </div>

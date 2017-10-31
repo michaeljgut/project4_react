@@ -298,7 +298,7 @@ class SearchUnit extends Component {
         buttonText = 'Less Articles';
       else
         buttonText = 'More Articles';
-      return <button className='more-articles-icon' onClick={this.handleClick}>{buttonText}</button>;
+      return <button className='button-class' onClick={this.handleClick}>{buttonText}</button>;
     } else
       return '';
   }
@@ -306,7 +306,7 @@ class SearchUnit extends Component {
   saveButton() {
     let user_id = cookies.get(`user_id`);
     if (Number(user_id) > 0) {
-      return <button type="button" className='save-articles-icon' onClick={this.saveTopic}>Save Topic</button>;
+      return <button type="button" className='button-class' onClick={this.saveTopic}>Save Topic</button>;
     } else
     return '';
   }
@@ -391,11 +391,10 @@ class SearchUnit extends Component {
               Enter a query:
             </label>
             {this.autoFocus()}
-            {this.saveButton()}
             <br />
             <label>
-              Or select a NY Times Topic:
-              <select name="topic" value={this.state.topic} onChange={this.handleChange}>
+              Or select a Section:
+              <select className="input-select" name="topic" value={this.state.topic} onChange={this.handleChange}>
                 <option value="home">Home</option>
                 <option value="arts">Arts</option>
                 <option value="automobiles">Automobiles</option>
@@ -424,7 +423,8 @@ class SearchUnit extends Component {
                 <option value="world">World</option>
               </select>
             </label>
-              <input className='submit' type="submit" value="SUBMIT" />
+            <input className='button-class' type="submit" value="SUBMIT" />
+            {this.saveButton()}
           </form>
           {this.button()}
           <div>{this.state.articles.slice(0,this.state.more_articles ? 10 : 3)}</div>

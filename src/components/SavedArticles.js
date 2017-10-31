@@ -62,13 +62,13 @@ class SavedArticles extends Component {
   }
 
   listArticles() {
-    if (this.state.query === '' && this.state.query === '*') {
+    if (this.state.query === '' || this.state.query === '*') {
       return this.state.articles.map(item => {
         return <DeleteArticle item={item} deleteOnClick={this.deleteOnClick} key={item.url}/>
       })
     } else {
       return this.state.articles.filter( article => {
-        return article.title.match(this.state.query) ? article : ''
+        return article.title.includes(this.state.query) ? article : ''
       }).map(item => {
         return <DeleteArticle item={item} deleteOnClick={this.deleteOnClick} key={item.url}/>
       })

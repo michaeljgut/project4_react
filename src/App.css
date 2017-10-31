@@ -4,9 +4,12 @@
 .App {
   text-align: center;
   font-family: 'Nunito', sans-serif;
+  margin-top: -1rem;
 }
 
 .article {
+  margin-left: -2.5rem;
+  text-align: center;
   list-style: none;
 }
 
@@ -54,39 +57,19 @@
   margin-top: 1em;
 }
 
-.auth-header {
-  text-align: center;
-}
-
 .auth-page {
   font-size: 1.25em;
-  margin: 0, auto;
   text-align: center;
-}
-
-.auth-page form {
-  width: 22em;
-  margin: 0, auto;
 }
 
 .auth-block label {
   font-size: 1.5em;
 }
 
-.auth-block {
-  width: 22em;
-  height: 15em;
-  margin: 0 auto;
-}
-
 .auth-page input {
   font-size: 1.5em;
   width: 11em;
   border: 5px solid cyan;
-}
-
-.submit {
-  margin: 0, auto;
 }
 
 .search1 {
@@ -139,7 +122,11 @@ img {
   text-align: center;
 }
 
-@media (max-width: 1250px) {
+.input-query {
+  width: 15rem;
+}
+
+@media (max-width: 50rem) {
   .search1, .search2 {
     float: none;
     text-align: center;
@@ -159,6 +146,44 @@ img {
 
   .edit-topic {
     font-size: 1em;
+  }
+  .nav-link2 {
+    padding-left: .4rem;
+    padding-right: .4rem;
+  }
+
+}
+
+@media (max-width: 30rem) {
+  .input-query {
+    width: 15rem;
+    border: solid .05rem blue;
+  }
+
+  .input-select {
+    border: solid .05rem blue;
+    -webkit-appearance: menulist;
+  }
+
+  .auth-header {
+    font-size: 1.15rem;
+  }
+  .reg-header {
+    font-size: 1.4rem;
+  }
+  .auth-block label {
+    font-size: 1.2em;
+  }
+
+  .auth-page input {
+    font-size: 1.2em;
+    width: 11em;
+    border: 5px solid cyan;
+  }
+
+  .button-class {
+    border: solid .05rem blue;
+    border-radius: .3rem;
   }
 
 }

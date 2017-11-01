@@ -83,7 +83,7 @@ class SavedArticles extends Component {
         <br />
         <form onSubmit={this.handleSubmit}>
           <label className="input-label">
-            Search Article Titles:
+            Search Saved Article Titles:
           </label>
           <input
                 className="input-query"
@@ -94,7 +94,7 @@ class SavedArticles extends Component {
                 onChange={this.handleChange}
                 autoFocus
           />
-          <input className='submit' type="submit" value="SUBMIT" />
+          <input className='button-class' type="submit" value="SUBMIT" />
         </form>
         {this.listArticles()}
       </div>

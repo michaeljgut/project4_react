@@ -101,10 +101,10 @@ class EditTopic extends Component {
               onChange={this.handleInputChange}
               autoFocus
             />
-            <input className='edit-button' type="submit" value="SUBMIT" />
+            <input className='edit-button button-class' type="submit" value="SUBMIT" />
           </form>
-          <button className='edit-button' onClick={this.deleteTopic}>DELETE</button>
-          <button className='edit-button' onClick={this.cancelTopic}>CANCEL</button>
+          <button className='edit-button button-class' onClick={this.deleteTopic}>DELETE</button>
+          <button className='edit-button button-class' onClick={this.cancelTopic}>CANCEL</button>
           {this.state.fireRedirect
             ? <Redirect push to={path} />
             : ''}
@@ -118,7 +118,7 @@ class EditTopic extends Component {
           <form onSubmit={this.handleFormSubmit}>
             <label className='topic-placeholder'>
               Select a NY Times Topic:
-              <select className='topic-placeholder' name="name" value={this.state.name}
+              <select className='edit-button input-select' name="name" value={this.state.name}
                 onChange={this.handleInputChange}>
                 <option value="home">Home</option>
                 <option value="arts">Arts</option>
@@ -149,10 +149,10 @@ class EditTopic extends Component {
                 autoFocus
               </select>
             </label>
-              <input className='edit-button' type="submit" value="SUBMIT" />
+              <input className="edit-button button-class" type="submit" value="SUBMIT" />
           </form>
-          <button className='edit-button' onClick={this.deleteTopic}>DELETE</button>
-          <button className='edit-button' onClick={this.cancelTopic}>CANCEL</button>
+          <button className="edit-button button-class" onClick={this.deleteTopic}>DELETE</button>
+          <button className="edit-button button-class" onClick={this.cancelTopic}>CANCEL</button>
           {this.state.fireRedirect
             ? <Redirect push to={path} />
             : ''}

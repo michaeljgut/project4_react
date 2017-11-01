@@ -14,7 +14,7 @@ class Article extends Component {
     let buttonText = '';
     if (this.props.user_id) {
       buttonText = 'Save';
-      return <button className='save-articles-icon' onClick={this.handleClick}>{buttonText}</button>;
+      return <button className='button-class' onClick={this.handleClick}>{buttonText}</button>;
     } else
     return '';
   }

@@ -62,7 +62,6 @@ class Nav extends React.Component {
     else
       content = (
         <div className='nav-line'>
-          <a href = {path} className='nav-link2'>Home</a>
           <a href = '/login' className='nav-link2'>Login</a>
           <a href = '/register' className='nav-link2'>Register</a>
         </div>

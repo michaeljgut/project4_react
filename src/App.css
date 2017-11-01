@@ -200,6 +200,7 @@ img {
   .button-class {
     border: solid .05rem gray;
     border-radius: .3rem;
+    margin-left: .2rem;
   }
 
 }

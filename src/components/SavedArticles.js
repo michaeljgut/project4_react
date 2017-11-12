@@ -68,7 +68,8 @@ class SavedArticles extends Component {
       })
     } else {
       return this.state.articles.filter( article => {
-        return article.title.includes(this.state.query) ? article : ''
+        return (article.title.includes(this.state.query) ||
+                article.publication_date.toString().includes(this.state.query)) ? article : ''
       }).map(item => {
         return <DeleteArticle item={item} deleteOnClick={this.deleteOnClick} key={item.url}/>
       })
@@ -83,7 +84,7 @@ class SavedArticles extends Component {
         <br />
         <form onSubmit={this.handleSubmit}>
           <label className="input-label">
-            Search Saved Article Titles:
+            Search Saved Article Titles/Dates:
           </label>
           <input
                 className="input-query"

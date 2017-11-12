@@ -56,7 +56,7 @@ class Nav extends React.Component {
           <a href = "/" onClick={this.handleClick} className='logout'>Logout</a>
           <a href = '/register' className='nav-link2'>Register</a>
           <a href = {savedPath} className='nav-link2'>Saved Articles</a>
-          <a href = {editPath} className='nav-link2'>Edit Topics</a>
+          <a href = {editPath} className='nav-link2'>Topics</a>
         </div>
       )
     else

@@ -384,15 +384,15 @@ class SearchUnit extends Component {
   render() {
     return (
       <div className="search-unit">
-        <h3>Search News Stories</h3>
+        <h2>Search News Stories</h2>
         <div className="get-articles">
-          <form onSubmit={this.handleSubmit}>
+          <form className="search-form" onSubmit={this.handleSubmit}>
             <label className="input-label">
               Enter a query:
             </label>
             {this.autoFocus()}
             <br />
-            <label>
+            <label className="input-select">
               Or select a Section:
               <select className="input-select" name="topic" value={this.state.topic} onChange={this.handleChange}>
                 <option value="home">Home</option>
@@ -423,7 +423,7 @@ class SearchUnit extends Component {
                 <option value="world">World</option>
               </select>
             </label>
-            <input className='button-class' type="submit" value="SUBMIT" />
+            <input className='submit-button-class' type="submit" value="SUBMIT" />
             {this.saveButton()}
           </form>
           {this.button()}

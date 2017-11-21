@@ -15,6 +15,10 @@ h2 {
   font-size: 175%;
 }
 
+h4 {
+  font-size: 125%;
+}
+
 .article {
   font-size: 125%;
   margin-left: -2.5%;
@@ -41,7 +45,7 @@ h2 {
 }
 
 .saved-item li {
-  font-size: 100%;
+  font-size: 125%;
   margin: 1.5% 0;
   list-style: none;
 }
@@ -129,6 +133,7 @@ img {
 }
 
 .topic-list {
+  font-size: 125%;
   list-style: none;
   margin-bottom: .5em;
 }
@@ -147,6 +152,7 @@ img {
 .input-query {
   margin-left: .5%;
   width: 15rem;
+  font-size: 125%;
 }
 
 @media (max-width: 80rem) {

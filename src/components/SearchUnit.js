@@ -55,36 +55,30 @@ class SearchUnit extends Component {
       .then(res => {
         console.log('--------------->', this.state)
         console.log(res);
-        // this.setState({
-        //   newId: res.data.data.id,
-        //   fireRedirect: true
-        // });
-      })
-      .catch(err => console.log(err));
-    axios
-      .get(path, {headers: headers})
-      .then(res => {
-        console.log('--------------->', this.state)
-        console.log(res.data);
-        let articleArray = res.data.map(item => {
-          let itemTemp = {
-            headline: {main: item.title},
-            pub_date: item.publication_date,
-            web_url: item.url,
-          }
-          return <Article article={itemTemp} user_id={this.props.user_id} key={item.url}/>;
-        })
-        if (res.data.length > 0) {
-          this.setState({
-            articles_loaded: true,
-            articles: articleArray,
-            displayArticles: true,
-          });
-        }
-        // this.setState({
-        //   newId: res.data.data.id,
-        //   fireRedirect: true
-        // });
+
+        // Only get any remaining articles in the temp article table after the deletion has completed.
+        axios
+          .get(path, {headers: headers})
+          .then(res => {
+            console.log('--------------->', this.state)
+            console.log(res.data);
+            let articleArray = res.data.map(item => {
+              let itemTemp = {
+                headline: {main: item.title},
+                pub_date: item.publication_date,
+                web_url: item.url,
+              }
+              return <Article article={itemTemp} user_id={this.props.user_id} key={item.url}/>;
+            })
+            if (res.data.length > 0) {
+              this.setState({
+                articles_loaded: true,
+                articles: articleArray,
+                displayArticles: true,
+              });
+            }
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   }
@@ -384,15 +378,15 @@ class SearchUnit extends Component {
   render() {
     return (
       <div className="search-unit">
-        <h3>Search News Stories</h3>
+        <h2>Search News Stories</h2>
         <div className="get-articles">
-          <form onSubmit={this.handleSubmit}>
+          <form className="search-form" onSubmit={this.handleSubmit}>
             <label className="input-label">
               Enter a query:
             </label>
             {this.autoFocus()}
             <br />
-            <label>
+            <label className="input-select">
               Or select a Section:
               <select className="input-select" name="topic" value={this.state.topic} onChange={this.handleChange}>
                 <option value="home">Home</option>
@@ -423,7 +417,7 @@ class SearchUnit extends Component {
                 <option value="world">World</option>
               </select>
             </label>
-            <input className='button-class' type="submit" value="SUBMIT" />
+            <input className='submit-button-class' type="submit" value="SUBMIT" />
             {this.saveButton()}
           </form>
           {this.button()}

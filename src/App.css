@@ -7,7 +7,20 @@
   margin-top: -1rem;
 }
 
+h1 {
+  font-size: 225%;
+}
+
+h2 {
+  font-size: 175%;
+}
+
+h4 {
+  font-size: 125%;
+}
+
 .article {
+  font-size: 125%;
   margin-left: -2.5%;
   text-align: center;
   list-style: none;
@@ -27,12 +40,12 @@
   padding-left: .5rem;
   padding-right: .5rem;
   font-family: 'Nunito', sans-serif;
-  font-size: 100%;
+  font-size: 125%;
   font-weight: 100;
 }
 
 .saved-item li {
-  font-size: 100%;
+  font-size: 125%;
   margin: 1.5% 0;
   list-style: none;
 }
@@ -43,7 +56,7 @@
 }
 
 .edit-topic {
-  font-size: 1.25em;
+  font-size: 125%;
   text-align: center;
 }
 
@@ -53,21 +66,21 @@
 }
 
 .topic-placeholder {
-  font-size: 1.25em;
+  font-size: 125%;
   margin-top: 1em;
 }
 
 .auth-page {
-  font-size: 1.25em;
+  font-size: 125%;
   text-align: center;
 }
 
 .auth-block label {
-  font-size: 1.5em;
+  font-size: 150%;
 }
 
 .auth-page input {
-  font-size: 1.5em;
+  font-size: 150%;
   width: 11em;
   border: 5px solid cyan;
 }
@@ -94,8 +107,25 @@ label {
   margin: 0, 5em, .5em, 5em;
 }
 
+.submit-button-class {
+  font-size: 100%;
+  margin-left: .5%;
+}
+
+.logout,
+.button-class,
+.input-select,
+.input-label {
+  font-size: 125%;
+}
+
 .input-label {
   margin: 0, 5em, .5em, 5em;
+}
+
+.button-class,
+.input-select {
+  margin-left: .5%;
 }
 
 img {
@@ -103,6 +133,7 @@ img {
 }
 
 .topic-list {
+  font-size: 125%;
   list-style: none;
   margin-bottom: .5em;
 }
@@ -119,10 +150,12 @@ img {
 }
 
 .input-query {
+  margin-left: .5%;
   width: 15rem;
+  font-size: 125%;
 }
 
-@media (max-width: 79rem) {
+@media (max-width: 80rem) {
   .search1, .search2 {
     float: none;
     text-align: center;

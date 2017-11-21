@@ -35,10 +35,6 @@ class App extends Component {
         this.setState({topics: tempArray,
                        dataLoaded: true});
         this.forceUpdate();
-        // this.setState({
-        //   newId: res.data.data.id,
-        //   fireRedirect: true
-        // });
       })
       .catch(err => console.log('in error',err));
     // while (!this.state.dataLoaded) {
@@ -110,12 +106,13 @@ class App extends Component {
           <img src={require('./images/poweredby_nytimes_150a.png')} className="nytimes_logo" alt="NY Times logo"/>
           <Nav user_id={this.props.match.params.user_id}/>
           <div className="search1">
-            <SearchUnit autofocus={true} user_id={this.props.match.params.user_id} unit_no="4" topic={this.state.topics[3]} />
-            <SearchUnit user_id={this.props.match.params.user_id} unit_no="3" topic={this.state.topics[2]} />
+            <SearchUnit autofocus={true} user_id={this.props.match.params.user_id} unit_no="1" />
+            <SearchUnit user_id={this.props.match.params.user_id} unit_no="2" topic={this.state.topics[0]} />
           </div>
           <div className="search2">
-            <SearchUnit user_id={this.props.match.params.user_id} unit_no="2" topic={this.state.topics[1]} />
-            <SearchUnit user_id={this.props.match.params.user_id} unit_no="1" topic={this.state.topics[0]} />
+            <SearchUnit user_id={this.props.match.params.user_id} unit_no="3" topic={this.state.topics[1]} />
+            <SearchUnit user_id={this.props.match.params.user_id} unit_no="4" topic={this.state.topics[2]} />
+            <SearchUnit user_id={this.props.match.params.user_id} unit_no="5" topic={this.state.topics[3]} />
           </div>
           {this.searchUnits()}
           <br />

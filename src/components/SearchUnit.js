@@ -55,36 +55,30 @@ class SearchUnit extends Component {
       .then(res => {
         console.log('--------------->', this.state)
         console.log(res);
-        // this.setState({
-        //   newId: res.data.data.id,
-        //   fireRedirect: true
-        // });
-      })
-      .catch(err => console.log(err));
-    axios
-      .get(path, {headers: headers})
-      .then(res => {
-        console.log('--------------->', this.state)
-        console.log(res.data);
-        let articleArray = res.data.map(item => {
-          let itemTemp = {
-            headline: {main: item.title},
-            pub_date: item.publication_date,
-            web_url: item.url,
-          }
-          return <Article article={itemTemp} user_id={this.props.user_id} key={item.url}/>;
-        })
-        if (res.data.length > 0) {
-          this.setState({
-            articles_loaded: true,
-            articles: articleArray,
-            displayArticles: true,
-          });
-        }
-        // this.setState({
-        //   newId: res.data.data.id,
-        //   fireRedirect: true
-        // });
+
+        // Only get any remaining articles in the temp article table after the deletion has completed.
+        axios
+          .get(path, {headers: headers})
+          .then(res => {
+            console.log('--------------->', this.state)
+            console.log(res.data);
+            let articleArray = res.data.map(item => {
+              let itemTemp = {
+                headline: {main: item.title},
+                pub_date: item.publication_date,
+                web_url: item.url,
+              }
+              return <Article article={itemTemp} user_id={this.props.user_id} key={item.url}/>;
+            })
+            if (res.data.length > 0) {
+              this.setState({
+                articles_loaded: true,
+                articles: articleArray,
+                displayArticles: true,
+              });
+            }
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   }

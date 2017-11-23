@@ -49,7 +49,20 @@ class SearchUnit extends Component {
       'uid': cookies.get('uid'),
       'expiry': cookies.get('expiry')
     };
-    let path = `/temp_articles?user_id=${user_id}&unit_no=${unit_no}`;
+    let path = `/topics/save?user_id=${user_id}&unit_no=${unit_no}`;
+    axios
+      .get(path,
+     { headers: headers })
+      .then(res => {
+        console.log('res.data = ',res.data);
+        if (res.data.length > 0) {
+          let tempTopic = res.data[0];
+          this.setState({query_topic: tempTopic.name,
+                         query_type: tempTopic.query_type});
+        }
+      })
+      .catch(err => console.log('in error',err));
+    path = `/temp_articles?user_id=${user_id}&unit_no=${unit_no}`;
     axios
       .delete(path, {headers: headers})
       .then(res => {
@@ -200,15 +213,40 @@ class SearchUnit extends Component {
     let getQuery = '';
     let articleArray = [];
     console.log('callType = ',callType);
+    let headers = {
+      'access-token': cookies.get('access-token'),
+      'client': cookies.get('client'),
+      'token-type': cookies.get('token-type'),
+      'uid': cookies.get('uid'),
+      'expiry': cookies.get('expiry')
+    };
     if (callType === 'State') {
-      // Delete temp articles from last query
-      let headers = {
-        'access-token': cookies.get('access-token'),
-        'client': cookies.get('client'),
-        'token-type': cookies.get('token-type'),
-        'uid': cookies.get('uid'),
-        'expiry': cookies.get('expiry')
-      };
+      // Delete temp articles from last query, if there were any
+      let queryName = '';
+      if (this.state.query === '') {
+        queryName = this.state.topic;
+        getQuery = 'https://api.nytimes.com/svc/topstories/v2/' +
+          this.state.topic + '.json?' + apiKey;
+          this.setState({query_topic: this.state.topic,
+                         query_type: 2});
+      } else {
+        queryName = this.state.query;
+        getQuery = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + this.state.query +
+          '&' + apiKey;
+          this.setState({query_topic: this.state.query,
+                         query_type: 1});
+      }
+      axios
+        .post('/topics', {
+          name: queryName,
+          query_type: this.state.query_type,
+          user_id: this.props.user_id,
+          search_unit: this.props.unit_no
+        }, {headers: headers})
+        .then(res => {
+          console.log('res = ',res);
+        })
+        .catch(err => console.log('in error ',err));
       let path = `/temp_articles/temp?user_id=${this.props.user_id}&unit_no=${this.props.unit_no}`;
       axios
         .delete(path, {headers: headers})
@@ -221,17 +259,6 @@ class SearchUnit extends Component {
           // });
         })
         .catch(err => console.log(err));
-      if (this.state.query === '') {
-        getQuery = 'https://api.nytimes.com/svc/topstories/v2/' +
-          this.state.topic + '.json?' + apiKey;
-          this.setState({query_topic: this.state.topic,
-                         query_type: 2});
-      } else {
-        getQuery = 'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + this.state.query +
-          '&' + apiKey;
-          this.setState({query_topic: this.state.query,
-                         query_type: 1});
-      }
     } else {
       // Get query from props since state won't have been loaded yet.
       if (this.props.topic.query_type === 1) {
@@ -248,7 +275,6 @@ class SearchUnit extends Component {
       }
     }
     console.log('getQuery = ', getQuery);
-    // let proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     axios.get(getQuery)
       .then(res => {
         console.log('this.state.query = ',this.state.query);
@@ -319,8 +345,11 @@ class SearchUnit extends Component {
     axios
       .post('/topics', {
         name: this.state.query_topic,
-        type: this.state.query_type,
+        query_type: this.state.query_type,
         user_id: this.props.user_id,
+
+        // Search unit 0 means this is not a temporary topic
+        search_unit: 0
       }, {headers: headers})
       .then(res => {
         console.log('--------------->', this.state)
@@ -355,7 +384,7 @@ class SearchUnit extends Component {
         return <input
                 className="input-query"
                 type="text"
-                placeholder="Query"
+                placeholder="Topic"
                 name="query"
                 value={this.state.query}
                 onChange={this.handleChange}
@@ -366,7 +395,7 @@ class SearchUnit extends Component {
         return <input
                 className="input-query"
                 type="text"
-                placeholder="Query"
+                placeholder="Topic"
                 name="query"
                 value={this.state.query}
                 onChange={this.handleChange}
@@ -374,20 +403,23 @@ class SearchUnit extends Component {
 
   }
 
+  capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   render() {
     return (
       <div className="search-unit">
-        <h2>Search News Stories</h2>
+        <h2>Search Articles</h2>
         <div className="get-articles">
           <form className="search-form" onSubmit={this.handleSubmit}>
             <label className="input-label">
-              Enter a query:
+              Type in a topic:
             </label>
             {this.autoFocus()}
             <br />
             <label className="input-select">
-              Or select a Section:
+              Or select a topic:
               <select className="input-select" name="topic" value={this.state.topic} onChange={this.handleChange}>
                 <option value="home">Home</option>
                 <option value="arts">Arts</option>
@@ -418,8 +450,8 @@ class SearchUnit extends Component {
               </select>
             </label>
             <input className='submit-button-class' type="submit" value="SUBMIT" />
-            {this.saveButton()}
           </form>
+          <p className="current-topic">Current topic: {this.capitalize(this.state.query_topic)}{this.saveButton()}</p>
           {this.button()}
           <div>{this.state.articles.slice(0,this.state.more_articles ? 10 : 3)}</div>
         </div>

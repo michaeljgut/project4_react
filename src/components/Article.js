@@ -13,7 +13,7 @@ class Article extends Component {
   button() {
     let buttonText = '';
     if (this.props.user_id) {
-      buttonText = 'Save';
+      buttonText = 'Save Article';
       return <button className='button-class' onClick={this.handleClick}>{buttonText}</button>;
     } else
     return '';

@@ -34,7 +34,6 @@ class App extends Component {
         let tempArray = res.data.slice();
         this.setState({topics: tempArray,
                        dataLoaded: true});
-        this.forceUpdate();
       })
       .catch(err => console.log('in error',err));
     // while (!this.state.dataLoaded) {
@@ -74,7 +73,7 @@ class App extends Component {
   renderApp() {
     return (
         <div className="App">
-          <h1>The New York Times' Articles Search Application</h1>
+          <h1>The New York Times' Article Search App</h1>
           <Nav user_id={this.props.match.params.user_id}/>
           <div className="search1">
             <SearchUnit autofocus={true} user_id={this.props.match.params.user_id} unit_no="1" topic={this.state.topics[0]} />
@@ -91,18 +90,19 @@ class App extends Component {
   }
 
   render() {
-    // if(!this.state.dataLoaded) {
-    //   return (
-    //     <div>
-    //       <h2>NY Times Article Search Application</h2>
-    //       <Nav user_id={this.props.match.params.user_id}/>
-    //       <h3>Data Is Loading...</h3>
-    //     </div>
-    //     );
-    // } else {
+    if(!this.state.dataLoaded) {
       return (
         <div className="App">
-          <h1>New York Times' Articles Search Application</h1>
+          <h1>The New York Times' Articles Search App</h1>
+          <img src={require('./images/poweredby_nytimes_150a.png')} className="nytimes_logo" alt="NY Times logo"/>
+          <Nav user_id={this.props.match.params.user_id}/>
+          <h2>Data Is Loading...</h2>
+        </div>
+        );
+    } else {
+      return (
+        <div className="App">
+          <h1>The New York Times' Articles Search App</h1>
           <img src={require('./images/poweredby_nytimes_150a.png')} className="nytimes_logo" alt="NY Times logo"/>
           <Nav user_id={this.props.match.params.user_id}/>
           <div className="search1">
@@ -118,7 +118,7 @@ class App extends Component {
           <br />
         </div>
       );
-    // }
+    }
   }
 }
 

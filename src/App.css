@@ -21,9 +21,9 @@ h4 {
 
 .article {
   font-size: 125%;
-  margin-left: -2.5%;
   text-align: center;
   list-style: none;
+  margin-left: -3%;
 }
 
 .edit {
@@ -46,7 +46,7 @@ h4 {
 
 .saved-item li {
   font-size: 125%;
-  margin: 1.5% 0;
+  margin: 1.5% 0 1.5% -2%;
   list-style: none;
 }
 
@@ -112,11 +112,12 @@ label {
   margin-left: .5%;
 }
 
+.current-topic,
 .logout,
 .button-class,
 .input-select,
 .input-label {
-  font-size: 125%;
+  font-size: 1.25rem;
 }
 
 .input-label {
@@ -139,7 +140,7 @@ img {
 }
 
 .search-unit {
-  margin: 0 1rem;
+  margin: 0 5% 0;
   max-width: 38rem;
 }
 
@@ -183,11 +184,35 @@ img {
 
 }
 
+@media (max-width: 79rem) {
+
+  .article {
+    font-size: 100%;
+    margin-left: -8%;
+  }
+
+  .logout,
+  .button-class,
+  .input-select,
+  .input-label {
+    font-size: 1rem;
+  }
+
+  .nav-line a {
+    color: black;
+    font-size: 1.25rem;
+  }
+
+}
+
+
 @media (max-width: 30rem) {
+
   .input-query {
     width: 15rem;
     border: solid .05rem gray;
     border-radius: .2rem;
+    font-size: 100%;
   }
 
   /* I copied this from the following web site since the right arrow on the select disappeared in
@@ -226,10 +251,34 @@ img {
     border: 5px solid cyan;
   }
 
+  .submit-button-class,
   .button-class {
     border: solid .05rem gray;
     border-radius: .3rem;
     margin-left: .2rem;
   }
+
+  .nav-line a {
+    color: black;
+    font-size: 100%;
+    font-weight: 300;
+  }
+
+  .nav-link2 {
+    padding-left: .5rem;
+    padding-right: .5rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 100%;
+    font-weight: 100;
+  }
+
+  .search-unit {
+    margin-top: 10%;
+  }
+
+  .article {
+    margin-left: -14%;
+  }
+
 
 }

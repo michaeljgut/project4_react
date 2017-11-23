@@ -84,7 +84,7 @@ class SavedArticles extends Component {
         <br />
         <form onSubmit={this.handleSubmit}>
           <label className="input-label">
-            Search Saved Article Titles/Dates:
+            Search Saved Articles By Title/Publication Date:
           </label>
           <input
                 className="input-query"

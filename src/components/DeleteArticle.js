@@ -14,7 +14,7 @@ class DeleteArticle extends Component {
   };
 
   button() {
-    let buttonText = 'REMOVE';
+    let buttonText = 'Unsave';
     return <button className='button-class' onClick={this.handleClick}>{buttonText}</button>;
   }
 

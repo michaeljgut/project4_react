@@ -27,11 +27,13 @@ class App extends Component {
       'expiry': cookies.get('expiry')
     };
     let path = `/topics?user_id=${cookies.get('user_id')}`;
+    console.log('topics path = ',path);
     axios
       .get(path,
      { headers: headers })
       .then(res => {
         let tempArray = res.data.slice();
+        console.log('topics array = ', tempArray);
         this.setState({topics: tempArray,
                        dataLoaded: true});
       })

@@ -49,20 +49,29 @@ class SearchUnit extends Component {
       'uid': cookies.get('uid'),
       'expiry': cookies.get('expiry')
     };
-    let path = `/topics/save?user_id=${user_id}&unit_no=${unit_no}`;
+    let pathTopic = `/topics/save?user_id=${user_id}&unit_no=${unit_no}`;
     axios
-      .get(path,
-     { headers: headers })
+      .delete(pathTopic, {headers: headers})
       .then(res => {
-        console.log('res.data = ',res.data);
-        if (res.data.length > 0) {
-          let tempTopic = res.data[0];
-          this.setState({query_topic: tempTopic.name,
-                         query_type: tempTopic.query_type});
-        }
+        console.log('--------------->', this.state)
+        console.log(res);
+
+        // Only get any remaining temp topics in the topics table after the deletion has completed.
+        axios
+          .get(pathTopic,
+         { headers: headers })
+          .then(resTopic => {
+            console.log('resTopic.data in temp topics = ',resTopic.data);
+            if (resTopic.data.length > 0) {
+              let tempTopic = resTopic.data[0];
+              this.setState({query_topic: tempTopic.name,
+                             query_type: tempTopic.query_type});
+            }
+          })
+          .catch(err => console.log('in error',err));
       })
-      .catch(err => console.log('in error',err));
-    path = `/temp_articles?user_id=${user_id}&unit_no=${unit_no}`;
+      .catch(err => console.log(err));
+    let path = `/temp_articles?user_id=${user_id}&unit_no=${unit_no}`;
     axios
       .delete(path, {headers: headers})
       .then(res => {
@@ -114,19 +123,22 @@ class SearchUnit extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('this.props.topic = ',this.props.topic);
     if (this.props.topic) {
       if (this.props.topic.query_type === 1)
-        this.setState({query: this.props.topic.name});
+        this.setState({query: this.props.topic.name,
+                       query_topic: this.props.topic.name});
       else if (this.props.topic.query_type === 2) {
         console.log('this.props.topic.name = ',this.props.topic.name);
-        this.setState({topic: this.props.topic.name});
+        this.setState({topic: this.props.topic.name,
+                       query_topic: this.props.topic.name});
       }
       setTimeout(this.callCheckIfDBLoaded.bind(this), 3000)
     }
   }
 
   componentDidMount() {
-    // console.log('this.props.topic = ',this.props.topic)
+    console.log('this.props.topic = ',this.props.topic);
     // if (this.props.topic) {
     //   if (this.props.topic.query_type === 1)
     //     this.setState({query: this.props.topic.name});
@@ -135,6 +147,7 @@ class SearchUnit extends Component {
     //   this.getAPIData();
     // }
     this.getTempData(this.props.user_id,this.props.unit_no);
+    this.componentWillReceiveProps();
   }
 
   postTempQueryArticle(article) {
@@ -341,7 +354,7 @@ class SearchUnit extends Component {
       'expiry': cookies.get('expiry')
     };
     console.log('in query post ',headers);
-    console.log('this.query_topic = ', this.state.query_topic);
+    console.log('this.state.query_topic = ', this.state.query_topic);
     axios
       .post('/topics', {
         name: this.state.query_topic,
@@ -403,7 +416,7 @@ class SearchUnit extends Component {
 
   }
 
-  capitalize(string) {
+  capitalize(string='home') {
       return string.charAt(0).toUpperCase() + string.slice(1);
   }
 

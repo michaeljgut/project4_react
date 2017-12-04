@@ -12,6 +12,7 @@ class Login extends Component {
         user_id: '',
         email: '',
         password: '',
+        message: '',
         fireRedirect: false
     };
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -49,7 +50,12 @@ class Login extends Component {
           fireRedirect: true,
       });
     })
-    .catch(err => console.log('in error',err));
+    .catch(err => {
+      console.log('in error',err);
+      this.setState({
+        message: 'Invalid email or password, please try again.'
+      });
+    });
     e.target.reset();
   }
 
@@ -65,15 +71,16 @@ class Login extends Component {
           <br/>
           <form className="auth-block" onSubmit={(e) => this.handleFormSubmit(e)}>
             <input name="email" type="text" placeholder="email" required autoFocus onChange={this.handleInputChange}/>
-            <br />
+            <br/>
             <input name="password" type="password" placeholder="password" required onChange={this.handleInputChange}/>
-            <br />
+            <br/>
             <input className="submit" type="submit" value="LOGIN" />
           </form>
 
           {this.state.fireRedirect
               ? <Redirect push to={path} />
                 : ''}
+          {this.state.message}
         </div>
       )
   }

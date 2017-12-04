@@ -11,11 +11,8 @@ class App extends Component {
     super();
     this.state = {
       topics: [],
-      searchUnitCount: 0,
       dataLoaded: false
     }
-    this.addSearchUnit = this.addSearchUnit.bind(this);
-    this.removeSearchUnit = this.removeSearchUnit.bind(this);
   }
 
   componentWillMount() {
@@ -38,57 +35,17 @@ class App extends Component {
                        dataLoaded: true});
       })
       .catch(err => console.log('in error',err));
-    // while (!this.state.dataLoaded) {
-    //   console.log('Waiting....');
-    //   let a = 2;
-    // }
 }
 
-  addSearchUnit() {
-    this.setState(prevState => ({
-      searchUnitCount: prevState.searchUnitCount + 1
-    }));
-  }
-
-  removeSearchUnit() {
-    if (this.state.searchUnitCount > 0)
-      this.setState(prevState => ({
-        searchUnitCount: prevState.searchUnitCount - 1
-      }));
-  }
-
   searchUnits() {
-          // <div className="buttons">
-          //   <button onClick={this.addSearchUnit}>Add Another Search Unit</button>
-          //   <button onClick={this.removeSearchUnit}>Remove A Search Unit</button>
-          // </div>
     let returnArray = [];
-    let searchi = '';
-    for (let i=0; i<this.state.searchUnitCount; i++){
-      searchi = 'search' + (i+3);
-      console.log('searchi = ', searchi);
-      returnArray[i] = (<div className={searchi}><SearchUnit user_id={this.props.match.params.user_id}/></div>);
+    returnArray[0] = (<SearchUnit autofocus={true} user_id={this.props.match.params.user_id} unit_no="1"
+      key="0" />);
+    for (let i=1; i<= this.state.topics.length; i++){
+      returnArray[i] = (<SearchUnit user_id={this.props.match.params.user_id} unit_no={i+1} key={i}
+        topic={this.state.topics[i-1]} />);
     }
     return returnArray;
-  }
-
-  renderApp() {
-    return (
-        <div className="App">
-          <h1>The New York Times' Article Search App</h1>
-          <Nav user_id={this.props.match.params.user_id}/>
-          <div className="search1">
-            <SearchUnit autofocus={true} user_id={this.props.match.params.user_id} unit_no="1" topic={this.state.topics[0]} />
-            <SearchUnit user_id={this.props.match.params.user_id} unit_no="2" topic={this.state.topics[1]} />
-          </div>
-          <div className="search2">
-            <SearchUnit user_id={this.props.match.params.user_id} unit_no="3" topic={this.state.topics[2]} />
-            <SearchUnit user_id={this.props.match.params.user_id} unit_no="4" topic={this.state.topics[3]} />
-          </div>
-          {this.searchUnits()}
-          <br />
-        </div>
-    )
   }
 
   render() {
@@ -107,16 +64,9 @@ class App extends Component {
           <h1>The New York Times' Articles Search App</h1>
           <img src={require('./images/poweredby_nytimes_150a.png')} className="nytimes_logo" alt="NY Times logo"/>
           <Nav user_id={this.props.match.params.user_id}/>
-          <div className="search1">
-            <SearchUnit autofocus={true} user_id={this.props.match.params.user_id} unit_no="1" />
-            <SearchUnit user_id={this.props.match.params.user_id} unit_no="2" topic={this.state.topics[0]} />
+          <div className="search">
+            {this.searchUnits()}
           </div>
-          <div className="search2">
-            <SearchUnit user_id={this.props.match.params.user_id} unit_no="3" topic={this.state.topics[1]} />
-            <SearchUnit user_id={this.props.match.params.user_id} unit_no="4" topic={this.state.topics[2]} />
-            <SearchUnit user_id={this.props.match.params.user_id} unit_no="5" topic={this.state.topics[3]} />
-          </div>
-          {this.searchUnits()}
           <br />
         </div>
       );

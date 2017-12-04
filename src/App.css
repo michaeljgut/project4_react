@@ -1,6 +1,10 @@
 /* fonts */
 @import url('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700');
 
+body {
+  background-color: beige;
+}
+
 .App {
   text-align: center;
   font-family: 'Nunito', sans-serif;
@@ -20,10 +24,10 @@ h4 {
 }
 
 .article {
-  font-size: 125%;
+  font-size: 100%;
   text-align: center;
   list-style: none;
-  margin-left: -3%;
+  margin-left: -8%;
 }
 
 .edit {
@@ -37,8 +41,8 @@ h4 {
 }
 
 .nav-link2 {
-  padding-left: .5rem;
-  padding-right: .5rem;
+  padding-left: .4rem;
+  padding-right: .4rem;
   font-family: 'Nunito', sans-serif;
   font-size: 125%;
   font-weight: 100;
@@ -50,13 +54,9 @@ h4 {
   list-style: none;
 }
 
+.edit-topic,
 .edit-topics-header {
   font-size: 1.25em;
-  text-align: center;
-}
-
-.edit-topic {
-  font-size: 125%;
   text-align: center;
 }
 
@@ -83,16 +83,6 @@ h4 {
   font-size: 150%;
   width: 11em;
   border: 5px solid cyan;
-}
-
-.search1,
-.search3 {
-  float: left;
-}
-
-.search2,
-.search4 {
-  float: right;
 }
 
 .logout {
@@ -135,17 +125,28 @@ img {
 
 .topic-list {
   font-size: 125%;
+  float: left;
   list-style: none;
-  margin-bottom: .5em;
+  display: inline-block;
+  padding: 5%;
+  margin: 0.5% 0 0.5% 2.5%;
+  width: 36%;
+  border: 1px solid black;
+  border-top: 5px solid black;
+  transition:all 0.9s ease;
+}
+
+.topics-pencil {
+  width: 7%;
+  margin-left: 7%;
 }
 
 .search-unit {
   margin: 0 5% 0;
-  max-width: 38rem;
 }
 
 .save-page {
-  font-size: 1.5em;
+  font-size: 100%;
   margin: 0 1rem;
   text-align: center;
 }
@@ -156,40 +157,7 @@ img {
   font-size: 125%;
 }
 
-@media (max-width: 80rem) {
-  .search1, .search2 {
-    float: none;
-    text-align: center;
-  }
-
-  .search-unit {
-    max-width: none;
-  }
-
-  .save-page {
-    font-size: 100%;
-  }
-
-  .edit-topics-header {
-    font-size: 100%;
-  }
-
-  .edit-topic {
-    font-size: 100%;
-  }
-  .nav-link2 {
-    padding-left: .4rem;
-    padding-right: .4rem;
-  }
-
-}
-
 @media (max-width: 79rem) {
-
-  .article {
-    font-size: 100%;
-    margin-left: -8%;
-  }
 
   .logout,
   .button-class,

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import cookies from 'cookies-js';
 import Nav from './Nav';
+import Image from '../images/pencil.svg'
 
 
 class EditTopics extends Component {
@@ -42,10 +43,12 @@ componentDidMount() {
 
   topicsMap(array){
     return array.map((topic, index) => {
-      console.log('topic = ',topic);
-        return <li key={topic.id} className="topic-list" >
-            <Link to={`/edit/${topic.id}/topic/${topic.name}/${topic.query_type}`}>{topic.name}</Link>
-          </li>
+      return <div className="topic-list" ><li key={topic.id} >
+          {topic.name}
+          <Link to={`/edit/${topic.id}/topic/${topic.name}/${topic.query_type}`}>
+            <img src={Image} alt="Pencil" className="topics-pencil" />
+          </Link>
+        </li></div>
     })
   }
 
@@ -55,7 +58,6 @@ componentDidMount() {
       console.log('user_id = ',this.props.match.params.user_id);
       return (
         <div>
-          <h4>Click Link Below To Edit Topic</h4>
           {this.topicsMap(this.state.topics)}
         </div>
       )
@@ -65,7 +67,7 @@ componentDidMount() {
   render(){
     return(
       <div className='edit-topics-header'>
-          <h2>Edit Topics</h2>
+          <h2>Topics</h2>
           <Nav user_id={this.props.match.params.user_id}/>
           <div className='topic-placeholder'>
             {this.renderTopics()}

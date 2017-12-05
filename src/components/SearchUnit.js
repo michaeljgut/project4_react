@@ -14,7 +14,8 @@ class SearchUnit extends Component {
       articles_loaded: false,
       articles: [],
       more_articles: false,
-      query_loaded: false
+      query_loaded: false,
+      error_message: ''
     };
     // this.getAPIData = this.getAPIData.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -287,7 +288,7 @@ class SearchUnit extends Component {
                          query_type: 2});
       }
     }
-    console.log('getQuery = ', getQuery);
+    // console.log('getQuery = ', getQuery);
     axios.get(getQuery)
       .then(res => {
         console.log('this.state.query = ',this.state.query);
@@ -321,6 +322,7 @@ class SearchUnit extends Component {
       })
       .catch(err => {
         console.log(err);
+        this.setState({error_message: 'Could not process query, please contact support or enter another'});
       });
   }
 
@@ -467,6 +469,7 @@ class SearchUnit extends Component {
           <p className="current-topic">Current topic: {this.capitalize(this.state.query_topic)}{this.saveButton()}</p>
           {this.button()}
           <div>{this.state.articles.slice(0,this.state.more_articles ? 10 : 3)}</div>
+          <div className='error-message'>{this.state.error_message}</div>
         </div>
       </div>
       )

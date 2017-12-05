@@ -23,6 +23,11 @@ h4 {
   font-size: 125%;
 }
 
+.error-message {
+  font-size: 175%;
+  color: red;
+}
+
 .article {
   font-size: 100%;
   text-align: center;
@@ -107,7 +112,7 @@ label {
 .button-class,
 .input-select,
 .input-label {
-  font-size: 1.25rem;
+  font-size: 125%;
 }
 
 .input-label {

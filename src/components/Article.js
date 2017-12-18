@@ -2,23 +2,21 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import cookies from 'cookies-js';
 
+/**
+  * Article is loaded by SearchUnit and will display article information passed to it as props. A user will
+  * also be able to click on a Save Article button to save the article information to the article table.
+  */
 class Article extends Component {
 
-  constructor(props){
-    super(props);
-    this.button = this.button.bind(this);
+  constructor(){
+    super();
     this.handleClick = this.handleClick.bind(this);
   };
 
-  button() {
-    let buttonText = '';
-    if (this.props.user_id) {
-      buttonText = 'Save Article';
-      return <button className='button-class' onClick={this.handleClick}>{buttonText}</button>;
-    } else
-    return '';
-  }
-
+  /**
+    * handleClick will write the current article to the article table. It will then be displayed when the user
+    * goes to the Saved Articles screen.
+    */
   handleClick(e) {
     e.preventDefault();
     let headers = {
@@ -28,7 +26,6 @@ class Article extends Component {
       'uid': cookies.get('uid'),
       'expiry': cookies.get('expiry')
     };
-    console.log('in query post ',headers);
     axios
       .post('/articles', {
         title: this.props.article.headline.main,
@@ -36,26 +33,16 @@ class Article extends Component {
         url: this.props.article.web_url,
         user_id: this.props.user_id,
       }, {headers: headers})
-      .then(res => {
-        console.log('--------------->', this.state)
-        console.log(res);
-        // this.setState({
-        //   newId: res.data.data.id,
-        //   fireRedirect: true
-        // });
-      })
       .catch(err => console.log(err));
   }
 
   render(){
     return (
-      <ul className="query-page">
-        <li className="article" key={this.props.article.pub_date}>
-          <a href={this.props.article.web_url}>{this.props.article.headline.main}</a>
-          <span> - {this.props.article.pub_date.substr(0,10)}</span>
-          {this.button()}
-        </li>
-      </ul>
+      <li className="article" key={this.props.article.pub_date}>
+        <a href={this.props.article.web_url}>{this.props.article.headline.main}</a>
+        <span> - {this.props.article.pub_date.substr(0,10)}</span>
+        <button className='button-class' onClick={this.handleClick}>Save Article</button>
+      </li>
     )
   }
 }

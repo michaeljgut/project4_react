@@ -1,7 +1,6 @@
 import React from 'react';
-import App from './App';
 import { BrowserRouter, Route } from 'react-router-dom';
-
+import App from './App';
 import Login from './components/Login.js'
 import Register from './components/Register.js'
 import SavedArticles from './components/SavedArticles.js'
@@ -10,12 +9,9 @@ import EditTopic from './components/EditTopic.js'
 export default (
     <BrowserRouter>
         <div className='router'>
-            <Route exact path='/home' component={Login} />
             <Route exact path='/' component={Login} />
-            <Route exact path='/articles/user/:user_id' component={SavedArticles} />
             <Route exact path='/search/user/:user_id' component={App} />
             <Route exact path='/login' component={Login} />
-            <Route exact path='/logout' component={Login} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/saved_articles/:user_id' component={SavedArticles} />
             <Route exact path='/topics/edit/:user_id' component={EditTopics} />

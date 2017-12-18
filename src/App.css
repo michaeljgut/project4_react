@@ -1,44 +1,13 @@
 /* fonts */
-@import url('https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700');
+@import url('https://fonts.googleapis.com/css?family=Nunito:100,300,700');
 
-body {
-  background-color: beige;
+/* This is used in the Header component */
+
+.header {
+  margin-top: -1%;
 }
 
-.App {
-  text-align: center;
-  font-family: 'Nunito', sans-serif;
-  margin-top: -1rem;
-}
-
-h1 {
-  font-size: 225%;
-}
-
-h2 {
-  font-size: 175%;
-}
-
-h4 {
-  font-size: 125%;
-}
-
-.error-message {
-  font-size: 175%;
-  color: red;
-}
-
-.article {
-  font-size: 100%;
-  text-align: center;
-  list-style: none;
-  margin-left: -8%;
-}
-
-.edit {
-  text-align: center;
-  font-size: 3%;
-}
+/* These are used in the nav component */
 
 .nav-line a {
   color: black;
@@ -46,33 +15,63 @@ h4 {
 }
 
 .nav-link2 {
-  padding-left: .4rem;
-  padding-right: .4rem;
-  font-family: 'Nunito', sans-serif;
+  margin-left: .4%;
+  margin-right: .4%;
   font-size: 125%;
-  font-weight: 100;
 }
 
-.saved-item li {
+.nav-link3 {
   font-size: 125%;
-  margin: 1.5% 0 1.5% -2%;
-  list-style: none;
 }
 
-.edit-topic,
-.edit-topics-header {
-  font-size: 1.25em;
+.logout {
+  text-decoration: underline;
+}
+
+/* The following affects the search articles screen */
+
+.App {
   text-align: center;
 }
 
-.edit-button {
-  font-size: 1em;
-  margin-left: .5em;
+.search-header {
+  font-size: 200%;
 }
 
-.topic-placeholder {
+.input-query {
+  margin-left: .5%;
+  width: 30%;
   font-size: 125%;
-  margin-top: 1em;
+}
+
+.input-label {
+  margin: 0, 5%, .5%, 5%;
+}
+
+.submit-button-class {
+  font-size: 100%;
+  margin-left: .5%;
+}
+
+/* This is used by the Article component */
+
+.article {
+  font-size: 125%;
+  text-align: center;
+  list-style: none;
+  margin-left: -8%;
+  margin-top: .5%;
+}
+
+/* These are used in the login and register screens */
+
+.auth-header {
+  font-size: 150%;
+}
+
+.error-message {
+  font-size: 175%;
+  color: red;
 }
 
 .auth-page {
@@ -86,46 +85,43 @@ h4 {
 
 .auth-page input {
   font-size: 150%;
-  width: 11em;
-  border: 5px solid cyan;
+  width: 25rem;
+  border: 5% solid cyan;
 }
 
-.logout {
-  text-decoration: underline;
+.auth-submit {
+  height: 4%;
+  background-color: cyan;
 }
 
-input {
-  margin-bottom: .5em;
-}
+/* This is used in the saved articles screen */
 
-label {
-  margin: 0, 5em, .5em, 5em;
-}
-
-.submit-button-class {
-  font-size: 100%;
-  margin-left: .5%;
-}
-
-.current-topic,
-.logout,
-.button-class,
-.input-select,
-.input-label {
+.save-page {
   font-size: 125%;
+  margin: 0 1rem;
+  text-align: center;
 }
 
-.input-label {
-  margin: 0, 5em, .5em, 5em;
+.saved-item {
+  font-size: 100%;
+  margin: .5% 0 .5% -2%;
+  list-style: none;
 }
 
-.button-class,
-.input-select {
+/* These are used in the edit topics screens */
+
+.edit-topic,
+.edit-topics-header {
+  font-size: 125%;
+  text-align: center;
+}
+
+.edit-button {
   margin-left: .5%;
 }
 
-img {
-  margin-top: -1em;
+.topic-placeholder {
+  font-size: 125%;
 }
 
 .topic-list {
@@ -135,56 +131,38 @@ img {
   display: inline-block;
   padding: 5%;
   margin: 0.5% 0 0.5% 2.5%;
-  width: 36%;
+  width: 20%;
   border: 1px solid black;
   border-top: 5px solid black;
   transition:all 0.9s ease;
 }
 
 .topics-pencil {
-  width: 7%;
+  width: 11%;
   margin-left: 7%;
 }
 
-.search-unit {
-  margin: 0 5% 0;
+.current-topic,
+.logout,
+.button-class,
+.input-select,
+.input-label {
+  font-size: 1.25rem;
 }
 
-.save-page {
-  font-size: 100%;
-  margin: 0 1rem;
-  text-align: center;
-}
-
-.input-query {
+.button-class,
+.input-select {
   margin-left: .5%;
-  width: 15rem;
-  font-size: 125%;
 }
 
-@media (max-width: 79rem) {
-
-  .logout,
-  .button-class,
-  .input-select,
-  .input-label {
-    font-size: 1rem;
-  }
-
-  .nav-line a {
-    color: black;
-    font-size: 1.25rem;
-  }
-
-}
-
+/* The following is for smartphone screens */
 
 @media (max-width: 30rem) {
 
   .input-query {
-    width: 15rem;
-    border: solid .05rem gray;
-    border-radius: .2rem;
+    width: 50%;
+    border: solid .05% gray;
+    border-radius: .2%;
     font-size: 100%;
   }
 
@@ -208,50 +186,54 @@ img {
     width: 13rem;
   }
 
+  /* Smaller font size for smaller screens */
+
   .auth-header {
-    font-size: 1.15rem;
+    font-size: 115%;
   }
-  .reg-header {
-    font-size: 1.4rem;
-  }
+
   .auth-block label {
-    font-size: 1.2em;
+    font-size: 125%;
   }
 
   .auth-page input {
-    font-size: 1.2em;
-    width: 11em;
+    font-size: 125%;
+    width: 70%;
     border: 5px solid cyan;
   }
 
   .submit-button-class,
   .button-class {
-    border: solid .05rem gray;
-    border-radius: .3rem;
-    margin-left: .2rem;
-  }
-
-  .nav-line a {
-    color: black;
-    font-size: 100%;
-    font-weight: 300;
+    border: solid .05% gray;
+    border-radius: .3%;
+    margin-left: .2%;
   }
 
   .nav-link2 {
-    padding-left: .5rem;
-    padding-right: .5rem;
-    font-family: 'Nunito', sans-serif;
-    font-size: 100%;
-    font-weight: 100;
+    margin-left: 1%;
+    margin-right: 1%;
   }
 
   .search-unit {
-    margin-top: 10%;
+    margin: 10% 4% 0 4%;
   }
 
   .article {
-    margin-left: -14%;
+    margin-left: 0;
   }
 
+  .topics-pencil {
+    width: 15%;
+  }
+
+  .edit-button {
+    margin-left: 2%;
+  }
+
+  /* Make topics 2 side by side instead of 3 for smaller screens */
+
+  .topic-list {
+    width: 36%
+  }
 
 }
